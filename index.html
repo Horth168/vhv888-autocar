@@ -1,199 +1,312 @@
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
-<link rel="icon" href="logo.jpg" type="image/jpg">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V88汽车城 - 柬埔寨首选租车服务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VHV888 AUTO | VHV888 汽车城 - Cambodia Premium Car Rental</title>
+    <link rel="icon" href="logo.jpg" type="image/jpg">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Siemreap&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            font-family: 'Inter', 'Noto Sans SC', 'Siemreap', 'Khmer OS Siemreap', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('ferrari.jpg');
+            background-image: linear-gradient(rgba(17, 24, 39, 0.65), rgba(17, 24, 39, 0.45)), url('ferrari.jpg');
             background-size: cover;
             background-position: center 60%;
         }
-        /* Custom burger icon styles */
-        .burger-icon {
-            color: white;
-            transition: color 0.3s ease;
+        .safe-bottom {
+            padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
         }
-        .burger-icon:hover {
-            color: #dc2626; /* red-600 */
+        .custom-dropdown-open {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            pointer-events: auto !important;
+        }
+        .fab-menu-open {
+            transform: scale(1) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-50 text-gray-900 select-none antialiased">
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-800 shadow-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-3xl font-bold text-red-600">V88汽车城</a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#fleet" class="text-white hover:text-red-600 transition-colors font-medium">我们的车队</a>
-                <a href="#features" class="text-white hover:text-red-600 transition-colors font-medium">服务特色</a>
-                <a href="#contact" class="text-white hover:text-red-600 transition-colors font-medium">联系我们</a>
-            </div>
-            <a href="https://t.me/v88autocar168" target="_blank" class="hidden md:inline-block bg-red-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-red-700 transition-colors shadow-md hover:shadow-lg">
-                Telegram咨询
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900 shadow-[0_4px_25px_rgba(0,0,0,0.45)]">
+        <nav class="container mx-auto px-4 py-2.5 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2.5 group active:scale-98 transition-transform">
+                <img src="logo.jpg" alt="VHV888 Logo" class="w-10 h-10 rounded-xl object-cover shadow-md">
+                <div class="flex flex-col">
+                    <span class="text-xl font-black text-red-600 tracking-wider leading-none">VHV888 AUTO</span>
+                    <span class="text-[10px] text-gray-400 font-bold tracking-widest uppercase mt-1" id="sub-logo">VHV888 汽车城</span>
+                </div>
             </a>
-            <button id="mobile-menu-button" class="md:hidden burger-icon focus:outline-none p-2">
-                <i data-feather="menu" class="w-6 h-6"></i>
-            </button>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#fleet" class="text-gray-300 hover:text-red-500 transition-colors font-semibold text-sm" id="nav-fleet">我们的车队</a>
+                <a href="#features" class="text-gray-300 hover:text-red-500 transition-colors font-semibold text-sm" id="nav-features">服务特色</a>
+                <a href="#testimonials" class="text-gray-300 hover:text-red-500 transition-colors font-semibold text-sm" id="nav-reviews">用户评价</a>
+                <a href="#location" class="text-gray-300 hover:text-red-500 transition-colors font-semibold text-sm" id="nav-location">门店地址</a>
+            </div>
+
+            <div class="flex items-center space-x-3 relative">
+                <div class="relative">
+                    <button id="lang-dropdown-btn" class="bg-gray-800 border border-gray-700 text-white font-bold py-1.5 px-3 rounded-xl text-xs hover:bg-gray-700 active:scale-95 transition-all flex items-center gap-1.5 focus:outline-none">
+                        <i data-feather="globe" class="w-3.5 h-3.5 text-red-500"></i>
+                        <span id="active-lang-lbl">中文</span>
+                        <i data-feather="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
+                    </button>
+                    <div id="lang-dropdown-panel" class="absolute right-0 mt-2 w-28 bg-gray-950 border border-gray-800 rounded-xl shadow-2xl transition-all duration-200 origin-top-right opacity-0 pointer-events-none transform -translate-y-2 z-50">
+                        <div class="p-1.5 space-y-1">
+                            <button onclick="applyLanguage('zh')" class="w-full text-left font-bold text-xs px-3 py-2 rounded-lg text-white bg-red-600/10 text-red-400 hover:bg-gray-800 block transition-colors">中文</button>
+                            <button onclick="applyLanguage('en')" class="w-full text-left font-bold text-xs px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 block transition-colors">English</button>
+                            <button onclick="applyLanguage('km')" class="w-full text-left font-bold text-xs px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 block transition-colors">ភាសាខ្មែរ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://t.me/v88autocar168" target="_blank" class="hidden md:inline-flex items-center gap-2 bg-red-600 text-white font-bold py-2 px-5 rounded-xl hover:bg-red-700 active:scale-95 transition-all shadow-md">
+                    <i data-feather="send" class="w-4 h-4"></i>
+                    <span id="cta-telegram">Telegram 咨询</span>
+                </a>
+
+                <button id="mobile-menu-button" class="md:hidden text-white p-2 focus:outline-none rounded-lg hover:bg-gray-800 active:scale-95 transition-transform">
+                    <i data-feather="menu" id="menu-icon" class="w-6 h-6"></i>
+                </button>
+            </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3 bg-gray-800 border-t border-gray-600">
-            <a href="#fleet" class="block text-white bg-gray-700 hover:text-red-600 hover:bg-gray-600 py-2 px-4 rounded transition-colors">我们的车队</a>
-            <a href="#features" class="block text-white bg-gray-700 hover:text-red-600 hover:bg-gray-600 py-2 px-4 rounded transition-colors">服务特色</a>
-            <a href="#contact" class="block text-white bg-gray-700 hover:text-red-600 hover:bg-gray-600 py-2 px-4 rounded transition-colors">联系我们</a>
-            <hr class="border-gray-600">
-            <a href="https://t.me/v88autocar168" target="_blank" class="block bg-red-600 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Telegram咨询</a>
+
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-6 pt-2 space-y-2 bg-gray-900 border-t border-gray-950 shadow-inner">
+            <a href="#fleet" class="block text-gray-200 bg-gray-800/50 hover:bg-red-600/10 hover:text-red-500 py-3 px-4 rounded-xl transition-all font-semibold" id="mob-fleet">我们的车队</a>
+            <a href="#features" class="block text-gray-200 bg-gray-800/50 hover:bg-red-600/10 hover:text-red-500 py-3 px-4 rounded-xl transition-all font-semibold" id="mob-features">服务特色</a>
+            <a href="#testimonials" class="block text-gray-200 bg-gray-800/50 hover:bg-red-600/10 hover:text-red-500 py-3 px-4 rounded-xl transition-all font-semibold" id="mob-reviews">用户评价</a>
+            <a href="#location" class="block text-gray-200 bg-gray-800/50 hover:bg-red-600/10 hover:text-red-500 py-3 px-4 rounded-xl transition-all font-semibold" id="mob-location">门店地址</a>
+            <div class="pt-2">
+                <a href="https://t.me/v88autocar168" target="_blank" class="flex items-center justify-center gap-2 bg-red-600 text-white text-center font-bold py-3 px-4 rounded-xl shadow-md active:scale-98 transition-all">
+                    <i data-feather="send" class="w-5 h-5"></i>
+                    <span id="mob-telegram-btn">Telegram 立即咨询</span>
+                </a>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero-section h-screen min-h-[600px] flex items-center justify-center text-white">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-black mb-4" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">柬埔寨首选租车服务</h1>
-                <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-medium" style="text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">豪华车队 &middot; 尊享体验 &middot; 24小时客服</p>
-                <a href="#fleet" class="bg-red-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-red-700 transition-transform transform hover:scale-105 text-lg">
-                    查看车辆
-                </a>
+    <main class="pt-16">
+        <section class="hero-section h-[90vh] min-h-[550px] flex items-center justify-center text-white relative">
+            <div class="container mx-auto px-6 text-center z-10">
+                <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight" style="text-shadow: 0 4px 14px rgba(0,0,0,0.85);" id="hero-title">柬埔寨首选租车服务</h1>
+                <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-medium tracking-wide" style="text-shadow: 0 2px 8px rgba(0,0,0,0.85);" id="hero-subtitle">豪华车队 · 尊享体验 · 24小时客服</p>
+                <a href="#fleet" class="inline-block bg-red-600 text-white font-bold py-3.5 px-10 rounded-xl hover:bg-red-700 active:scale-95 transition-all text-lg shadow-xl" id="hero-btn">查看车辆</a>
+            </div>
+            <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 text-gray-400/80 animate-bounce hidden sm:block">
+                <i data-feather="chevrons-down" class="w-6 h-6"></i>
             </div>
         </section>
 
-        <section id="features" class="py-20 bg-white">
+        <section id="features" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">为什么选择V88汽车城?</h2>
-                <p class="text-gray-600 mb-16 max-w-2xl mx-auto">我们致力于在柬埔寨西哈努克港(西港)提供最优质、最便捷的租车服务。</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="flex flex-col items-center">
-                        <div class="bg-red-100 text-red-600 rounded-full p-6 mb-4">
-                            <i data-feather="map" class="w-10 h-10"></i>
+                <h2 class="text-3xl md:text-4xl font-bold mb-3 tracking-tight text-gray-900" id="features-title">为什么选择 VHV888 AUTO ?</h2>
+                <p class="text-gray-500 mb-16 max-w-2xl mx-auto text-sm md:text-base font-medium" id="features-subtitle">我们致力于在柬埔寨西哈努克港(西港)提供最优质、最便捷的豪华租车服务。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="flex flex-col items-center p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-red-50 text-red-600 rounded-2xl p-4 mb-5 shadow-inner">
+                            <i data-feather="map-pin" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">西港本地服务</h3>
-                        <p class="text-gray-600">我们深耕西港，熟悉本地路况和需求，为您提供最专业的建议。</p>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900" id="f1-title">西港本地服务</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed" id="f1-desc">我们深耕西港，熟悉本地路况和需求，为您提供最专业的建议。</p>
                     </div>
-                     <div class="flex flex-col items-center">
-                        <div class="bg-red-100 text-red-600 rounded-full p-6 mb-4">
-                            <i data-feather="clock" class="w-10 h-10"></i>
+                    <div class="flex flex-col items-center p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-red-50 text-red-600 rounded-2xl p-4 mb-5 shadow-inner">
+                            <i data-feather="clock" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">24/7客服支持</h3>
-                        <p class="text-gray-600">全天候在线客服，随时通过Telegram解答您的疑问，处理您的需求。</p>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900" id="f2-title">24/7客服支持</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed" id="f2-desc">全天候在线客服，随时通过Telegram解答您的疑问，处理您的需求。</p>
                     </div>
-                     <div class="flex flex-col items-center">
-                        <div class="bg-red-100 text-red-600 rounded-full p-6 mb-4">
-                             <i data-feather="file-text" class="w-10 h-10"></i>
+                    <div class="flex flex-col items-center p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-red-50 text-red-600 rounded-2xl p-4 mb-5 shadow-inner">
+                            <i data-feather="shield" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">手续简单快捷</h3>
-                        <p class="text-gray-600">我们简化租车流程，无需繁琐手续，让您轻松提车，畅行无忧。</p>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900" id="f3-title">手续简单快捷</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed" id="f3-desc">我们简化租车流程，无需繁琐手续，让您轻松提车，畅行无忧。</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="fleet" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">探索我们的豪华车队</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="lexus.png" alt="雷克萨斯 LM300h" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2">雷克萨斯 LM300h</h3>
-                            <div class="flex items-center space-x-4 text-gray-600 mb-4 text-sm">
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="users" class="w-4 h-4 mr-1.5"></i>7座</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="settings" class="w-4 h-4 mr-1.5"></i>自动挡</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded">豪华MPV</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">顶级的商务接待与家庭出行之选，尽享奢华舒适。</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-3xl font-bold text-red-600">$3500<span class="text-base font-medium text-gray-500">/月</span></p>
-                                <a href="https://t.me/v88autocar168" target="_blank" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">立即租赁</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="alphard.png" alt="丰田 埃尔法" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2">丰田 埃尔法</h3>
-                            <div class="flex items-center space-x-4 text-gray-600 mb-4 text-sm">
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="users" class="w-4 h-4 mr-1.5"></i>7座</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="settings" class="w-4 h-4 mr-1.5"></i>自动挡</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded">商务之星</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">被誉为"明星保姆车"，提供无与伦比的乘坐体验。</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-3xl font-bold text-red-600">$2500<span class="text-base font-medium text-gray-500">/月</span></p>
-                                <a href="https://t.me/v88autocar168" target="_blank" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">立即租赁</a>
+        <section id="fleet" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 tracking-tight text-gray-900" id="fleet-heading">探索尊享车队</h2>
+                
+                <div class="flex flex-wrap justify-center gap-2 mb-10 max-w-md mx-auto">
+                    <button onclick="filterFleet('all')" id="filter-all" class="flex-1 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm bg-red-600 text-white">全部车辆</button>
+                    <button onclick="filterFleet('mpv')" id="filter-mpv" class="flex-1 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm bg-white text-gray-600 hover:bg-gray-200">MPV</button>
+                    <button onclick="filterFleet('suv')" id="filter-suv" class="flex-1 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm bg-white text-gray-600 hover:bg-gray-200">SUV</button>
+                    <button onclick="filterFleet('sedan')" id="filter-sedan" class="flex-1 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm bg-white text-gray-600 hover:bg-gray-200">轿车</button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="fleet-grid">
+                    <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="mpv">
+                        <div>
+                            <div class="relative bg-gray-200 h-52 overflow-hidden"><img src="lexus.png" alt="Lexus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                            <div class="p-5 pb-0">
+                                <h3 class="text-2xl font-bold mb-3 text-gray-900" id="c1-title">雷克萨斯 LM300h</h3>
+                                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-4">
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c1-seat">7 座</span></span>
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
+                                    <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-lg" id="c1-tag">豪华MPV</span>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed font-medium" id="c1-desc">顶级的商务接待与家庭出行之选，尽享奢华舒适。</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="maybach.png" alt="丰田 埃尔法" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2">迈巴赫 S680</h3>
-                            <div class="flex items-center space-x-4 text-gray-600 mb-4 text-sm">
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="users" class="w-4 h-4 mr-1.5"></i>5座</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="settings" class="w-4 h-4 mr-1.5"></i>自动挡</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded">旗舰豪车 </span>
-                            </div>
-                            <p class="text-gray-600 mb-4">尊贵象征，顶级奢华与先进科技完美融合，商务与尊享的不二之选。</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-3xl font-bold text-red-600">$3000<span class="text-base font-medium text-gray-500">/月</span></p>
-                                <a href="https://t.me/v88autocar168" target="_blank" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">立即租赁</a>
-                            </div>
+                        <div class="p-5 pt-4 border-t border-gray-100 flex justify-between items-center mt-4">
+                            <p class="text-2xl font-black text-red-600">$3500<span class="text-xs font-medium text-gray-400">/ <span class="rent-unit">月</span></span></p>
+                            <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1"><span class="rent-btn-txt">立即租赁</span> <i data-feather="chevron-right" class="w-4 h-4"></i></a>
                         </div>
                     </div>
-                    <div class="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="range.png" alt="丰田 埃尔法" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2">路虎 揽胜</h3>
-                            <div class="flex items-center space-x-4 text-gray-600 mb-4 text-sm">
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="users" class="w-4 h-4 mr-1.5"></i>5座</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="settings" class="w-4 h-4 mr-1.5"></i>自动挡</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded">全地形SUV</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">无惧复杂路况，越野性能与奢华内饰兼备，驾驭自由每一程。</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-3xl font-bold text-red-600">$2400<span class="text-base font-medium text-gray-500">/月</span></p>
-                                <a href="https://t.me/v88autocar168" target="_blank" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">立即租赁</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="gac.png" alt="丰田 埃尔法" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2">广汽传祺 GN8</h3>
-                            <div class="flex items-center space-x-4 text-gray-600 mb-4 text-sm">
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="users" class="w-4 h-4 mr-1.5"></i>7座</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="settings" class="w-4 h-4 mr-1.5"></i>自动挡</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded">舒适MPV</span>
-                            </div>
-                            <p class="text-gray-600 mb-4">空间宽敞，配置丰富，是家庭与商务出行的可靠选择。</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-3xl font-bold text-red-600">$2500<span class="text-base font-medium text-gray-500">/月</span></p>
-                                <a href="https://t.me/v88autocar168" target="_blank" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">立即租赁</a>
+
+                    <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="mpv">
+                        <div>
+                            <div class="relative bg-gray-200 h-52 overflow-hidden"><img src="alphard.png" alt="Alphard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                            <div class="p-5 pb-0">
+                                <h3 class="text-2xl font-bold mb-3 text-gray-900" id="c2-title">丰田 埃尔法</h3>
+                                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-4">
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c2-seat">7 座</span></span>
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
+                                    <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-lg" id="c2-tag">商务之星</span>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed font-medium" id="c2-desc">被誉为"明星保姆车"，提供无与伦比的乘坐体验。</p>
                             </div>
                         </div>
+                        <div class="p-5 pt-4 border-t border-gray-100 flex justify-between items-center mt-4">
+                            <p class="text-2xl font-black text-red-600">$2500<span class="text-xs font-medium text-gray-400">/ <span class="rent-unit">月</span></span></p>
+                            <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1"><span class="rent-btn-txt">立即租赁</span> <i data-feather="chevron-right" class="w-4 h-4"></i></a>
+                        </div>
                     </div>
-                    <div class="bg-white border rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                        <img src="land.png" alt="丰田 兰德酷路泽" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2">丰田 陆巡</h3>
-                             <div class="flex items-center space-x-4 text-gray-600 mb-4 text-sm">
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="users" class="w-4 h-4 mr-1.5"></i>7座</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded"><i data-feather="settings" class="w-4 h-4 mr-1.5"></i>自动挡</span>
-                                <span class="flex items-center bg-gray-200 px-2 py-1 rounded">越野之王</span>
+
+                    <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="sedan">
+                        <div>
+                            <div class="relative bg-gray-200 h-52 overflow-hidden"><img src="maybach.png" alt="Maybach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                            <div class="p-5 pb-0">
+                                <h3 class="text-2xl font-bold mb-3 text-gray-900" id="c3-title">迈巴赫 S680</h3>
+                                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-4">
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c3-seat">5 座</span></span>
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
+                                    <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-lg" id="c3-tag">旗舰豪车</span>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed font-medium" id="c3-desc">尊贵象征，顶级奢华与先进科技完美融合，商务与尊享的不二之选。</p>
                             </div>
-                            <p class="text-gray-600 mb-4">征服各种复杂路况，安全与性能的完美结合。</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-3xl font-bold text-red-600">$1500<span class="text-base font-medium text-gray-500">/月</span></p>
-                                <a href="https://t.me/v88autocar168" target="_blank" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">立即租赁</a>
+                        </div>
+                        <div class="p-5 pt-4 border-t border-gray-100 flex justify-between items-center mt-4">
+                            <p class="text-2xl font-black text-red-600">$3000<span class="text-xs font-medium text-gray-400">/ <span class="rent-unit">月</span></span></p>
+                            <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1"><span class="rent-btn-txt">立即租赁</span> <i data-feather="chevron-right" class="w-4 h-4"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="suv">
+                        <div>
+                            <div class="relative bg-gray-200 h-52 overflow-hidden"><img src="range.png" alt="Range Rover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                            <div class="p-5 pb-0">
+                                <h3 class="text-2xl font-bold mb-3 text-gray-900" id="c4-title">路虎 揽胜</h3>
+                                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-4">
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c4-seat">5 座</span></span>
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
+                                    <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-lg" id="c4-tag">全地形SUV</span>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed font-medium" id="c4-desc">无惧复杂路况，越野性能与奢华内饰兼备，驾驭自由每一程。</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-4 border-t border-gray-100 flex justify-between items-center mt-4">
+                            <p class="text-2xl font-black text-red-600">$2400<span class="text-xs font-medium text-gray-400">/ <span class="rent-unit">月</span></span></p>
+                            <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1"><span class="rent-btn-txt">立即租赁</span> <i data-feather="chevron-right" class="w-4 h-4"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="mpv">
+                        <div>
+                            <div class="relative bg-gray-200 h-52 overflow-hidden"><img src="gac.png" alt="GAC" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                            <div class="p-5 pb-0">
+                                <h3 class="text-2xl font-bold mb-3 text-gray-900" id="c5-title">广汽传祺 GN8</h3>
+                                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-4">
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c5-seat">7 座</span></span>
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
+                                    <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-lg" id="c5-tag">舒适MPV</span>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed font-medium" id="c5-desc">空间宽敞，配置丰富，是家庭与商务出行的可靠选择。</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-4 border-t border-gray-100 flex justify-between items-center mt-4">
+                            <p class="text-2xl font-black text-red-600">$2500<span class="text-xs font-medium text-gray-400">/ <span class="rent-unit">月</span></span></p>
+                            <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1"><span class="rent-btn-txt">立即租赁</span> <i data-feather="chevron-right" class="w-4 h-4"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="suv">
+                        <div>
+                            <div class="relative bg-gray-200 h-52 overflow-hidden"><img src="land.png" alt="Land Cruiser" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                            <div class="p-5 pb-0">
+                                <h3 class="text-2xl font-bold mb-3 text-gray-900" id="c6-title">丰田 陆巡</h3>
+                                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-4">
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c6-seat">7 座</span></span>
+                                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
+                                    <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-lg" id="c6-tag">越野之王</span>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed font-medium" id="c6-desc">征服各种复杂路况，安全与性能的完美结合。</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-4 border-t border-gray-100 flex justify-between items-center mt-4">
+                            <p class="text-2xl font-black text-red-600">$1500<span class="text-xs font-medium text-gray-400">/ <span class="rent-unit">月</span></span></p>
+                            <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1"><span class="rent-btn-txt">立即租赁</span> <i data-feather="chevron-right" class="w-4 h-4"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="py-16 bg-white border-b border-gray-100">
+            <div class="container mx-auto px-6 max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-10 tracking-tight text-gray-900" id="rev-heading">用户真实评价</h2>
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm relative min-h-[220px] flex flex-col justify-center transition-all duration-300">
+                    <div class="text-red-500/20 absolute top-4 left-6 text-6xl font-serif">“</div>
+                    <p class="text-gray-700 italic text-base md:text-lg mb-6 leading-relaxed font-medium transition-opacity duration-300" id="rev-text">服务非常到位！车况极新，去西港出差提车速度飞快，下次接待贵宾必然首选 VHV888。</p>
+                    <div class="font-bold text-gray-900 text-sm tracking-wide transition-opacity duration-300" id="rev-user">张先生 — 集团企业高管</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4 max-w-5xl">
+                <h2 class="text-3xl font-bold text-center mb-10 tracking-tight text-gray-900" id="loc-heading">门店地址 & 营业详情</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-xl h-64 flex flex-col justify-between hero-section">
+                        <div>
+                            <span class="bg-red-600 text-xs font-bold px-2.5 py-1 rounded-md uppercase" id="loc-tag">西港直营总部</span>
+                            <h3 class="text-xl font-bold mt-3">VHV888 AUTO SHOWROOM</h3>
+                        </div>
+                        <a href="https://maps.app.goo.gl/3oMTjnGtAHJyiXxC6" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-red-400 hover:text-white transition-colors">
+                            <i data-feather="map" class="w-4 h-4"></i> <span id="loc-map-action">打开谷歌地图导航</span>
+                        </a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm flex gap-4">
+                            <div class="text-red-600"><i data-feather="clock" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900" id="loc-time-lbl">营业时间</h4>
+                                <p class="text-xs text-gray-500 mt-0.5" id="loc-time-val">周一至周日 24小时全天候服务</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm flex gap-4">
+                            <div class="text-red-600"><i data-feather="phone-call" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900" id="loc-contact-lbl">服务热线</h4>
+                                <p class="text-xs text-gray-600 mt-0.5 font-semibold">087 278 778 / 076 668 9568</p>
                             </div>
                         </div>
                     </div>
@@ -201,55 +314,290 @@
             </div>
         </section>
         
-        <section id="contact" class="py-20 bg-red-600 text-white">
+        <section id="contact" class="py-16 bg-red-600 text-white">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">准备好开启您的旅程了吗?</h2>
-                <p class="text-red-100 max-w-2xl mx-auto mb-8">立即联系我们的客服，预订您的专属座驾。我们期待为您服务！</p>
-                <a href="https://t.me/v88autocar168" target="_blank" class="bg-white text-red-600 font-bold py-3 px-10 rounded-lg hover:bg-gray-100 transition-transform transform hover:scale-105 text-lg shadow-lg">
-                    <i data-feather="send" class="inline-block w-5 h-5 mr-2 -mt-1"></i>
-                    通过Telegram联系我们
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" id="contact-title">准备好开启您的旅程了吗?</h2>
+                <p class="text-red-100 max-w-2xl mx-auto mb-8 text-sm md:text-base font-medium" id="contact-subtitle">立即联系我们的客服，预订您的专属座驾。我们期待为您服务！</p>
+                <a href="https://t.me/v88autocar168" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white text-red-600 font-bold py-3.5 px-8 rounded-xl hover:bg-gray-100 active:scale-95 transition-all text-lg shadow-xl">
+                    <i data-feather="send" class="w-5 h-5"></i>
+                    <span id="contact-btn-text">通过Telegram联系我们</span>
                 </a>
             </div>
         </section>
-
     </main>
 
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-gray-900 text-white py-12 border-t border-gray-950 safe-bottom">
         <div class="container mx-auto px-6 text-center">
-            <p class="text-3xl font-bold mb-4 text-red-500">V88汽车城</p>
-            <div class="text-gray-300 space-y-2">
-                <p><strong>联系方式:</strong> <a href="https://t.me/v88autocar168" target="_blank" class="hover:text-red-400 transition-colors">Telegram @v88autocar168</a></p>
-                <p><strong>服务地点:</strong> 柬埔寨 西哈努克港 (西港)</p>
+            <p class="text-3xl font-black mb-2 text-red-600 tracking-wider">VHV888 AUTO</p>
+            <p class="text-sm font-semibold text-gray-400 mb-6 tracking-widest" id="footer-sublogo">VHV888 汽车城</p>
+            
+            <div class="text-gray-400 space-y-2 text-sm max-w-md mx-auto">
+                <p><strong id="f-contact-lbl">联系方式:</strong> <span class="text-white">087 278 778 / 076 668 9568</span></p>
+                <p><strong>Telegram:</strong> <a href="https://t.me/v88autocar168" target="_blank" class="text-white hover:text-red-500 transition-colors">@v88autocar168</a></p>
+                <p><strong id="f-loc-lbl">服务地点:</strong> <span id="f-loc-val">柬埔寨 西哈努克港 (西港)</span></p>
             </div>
-             <div class="flex justify-center space-x-6 my-8">
-                <a href="https://www.facebook.com/profile.php?id=61577064930158" target="_blank"><i data-feather="facebook" class="w-6 h-6 hover:text-red-400"></i></a>
-                <a href="https://www.tiktok.com/@v88_auto_car?_t=ZS-8xdgLAs8moB&_r=1" target="_blank"><i class="fab fa-tiktok w-6 h-6 hover:text-red-400"></i></a>
-                <a href="https://t.me/v88autocar168" target="_blank"><i data-feather="send" class="w-6 h-6 hover:text-red-400"></i></a>
+
+            <div class="flex justify-center space-x-6 my-8">
+                <a href="https://www.facebook.com/profile.php?id=61577064930158" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-red-600 hover:text-white transition-all text-gray-300"><i data-feather="facebook" class="w-5 h-5"></i></a>
+                <a href="https://www.tiktok.com/@v88_auto_car?_t=ZS-8xdgLAs8moB&_r=1" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-red-600 hover:text-white transition-all text-gray-300"><i class="fab fa-tiktok w-5 h-5"></i></a>
+                <a href="https://t.me/v88autocar168" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-red-600 hover:text-white transition-all text-gray-300"><i data-feather="send" class="w-5 h-5"></i></a>
             </div>
-            <p class="text-gray-500 text-sm">&copy; 2025 V88汽车城. 版权所有.</p>
+            
+            <p class="text-gray-600 text-xs mt-4">© 2026 VHV888 AUTO. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <div class="fixed bottom-20 right-4 z-50 md:hidden flex flex-col items-end gap-3">
+        <div id="fab-menu-list" class="flex flex-col items-end gap-2 transform scale-75 opacity-0 pointer-events-none transition-all duration-300 origin-bottom-right">
+            <a href="tel:087278778" class="flex items-center gap-2 bg-blue-600 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>087 278 778</span> <i class="fas fa-phone"></i></a>
+            <a href="tel:0766689568" class="flex items-center gap-2 bg-indigo-600 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>076 668 9568</span> <i class="fas fa-phone"></i></a>
+            <a href="https://t.me/v88autocar168" target="_blank" class="flex items-center gap-2 bg-sky-500 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>Telegram</span> <i class="fab fa-telegram text-sm"></i></a>
+        </div>
+        <button id="fab-master-btn" class="bg-red-600 text-white p-3.5 rounded-full shadow-2xl focus:outline-none hover:bg-red-700 transition-colors active:scale-90 flex items-center justify-center">
+            <i data-feather="message-circle" id="fab-icon" class="w-6 h-6 animate-pulse"></i>
+        </button>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 z-50 bg-gray-950/90 backdrop-blur-lg border-t border-gray-950 md:hidden flex justify-around items-center py-2 px-2 shadow-2xl">
+        <a href="#fleet" class="flex flex-col items-center justify-center text-gray-400 hover:text-red-500 transition-colors py-1">
+            <i data-feather="truck" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold" id="dock-fleet">车队</span>
+        </a>
+        <a href="https://t.me/v88autocar168" target="_blank" class="flex flex-col items-center justify-center bg-red-600 text-white rounded-xl py-2 px-6 shadow-lg relative -top-3 scale-110 active:scale-95 transition-all">
+            <i data-feather="send" class="w-5 h-5"></i>
+            <span class="text-[9px] font-black uppercase tracking-wider mt-0.5">Telegram</span>
+        </a>
+        <a href="https://maps.app.goo.gl/3oMTjnGtAHJyiXxC6" target="_blank" class="flex flex-col items-center justify-center text-gray-400 hover:text-red-500 transition-colors py-1">
+            <i data-feather="map-pin" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold" id="dock-contact">门店</span>
+        </a>
+    </div>
+
     <script>
-        // --- Feather Icons ---
         feather.replace();
 
-        // --- Mobile Menu Toggle ---
+        // Mobile header drawer toggles
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
         
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            menuIcon.setAttribute('data-feather', isHidden ? 'menu' : 'x');
+            feather.replace();
         });
 
-        // Close mobile menu when clicking on menu links
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a[href^="#"]');
-        mobileMenuLinks.forEach(link => {
+        document.querySelectorAll('#mobile-menu a[href^="#"]').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-feather', 'menu');
+                feather.replace();
             });
         });
 
+        // Dropdown Language Switcher Control triggers
+        const dropdownBtn = document.getElementById('lang-dropdown-btn');
+        const dropdownPanel = document.getElementById('lang-dropdown-panel');
+        const activeLangLbl = document.getElementById('active-lang-lbl');
+
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownPanel.classList.toggle('custom-dropdown-open');
+        });
+
+        document.addEventListener('click', () => {
+            dropdownPanel.classList.remove('custom-dropdown-open');
+            document.getElementById('fab-menu-list').classList.remove('fab-menu-open');
+        });
+
+        // FAB Menu Trigger
+        const fabBtn = document.getElementById('fab-master-btn');
+        const fabList = document.getElementById('fab-menu-list');
+        const fabIcon = document.getElementById('fab-icon');
+
+        fabBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = fabList.classList.toggle('fab-menu-open');
+            fabIcon.setAttribute('data-feather', isOpen ? 'x' : 'message-circle');
+            feather.replace();
+        });
+
+        // Fleet Filter Logic 
+        function filterFleet(category) {
+            const cards = document.querySelectorAll('.car-card');
+            cards.forEach(card => {
+                if(category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            ['all', 'mpv', 'suv', 'sedan'].forEach(cat => {
+                const btn = document.getElementById(`filter-${cat}`);
+                if(cat === category) {
+                    btn.className = "flex-1 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm bg-red-600 text-white";
+                } else {
+                    btn.className = "flex-1 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm bg-white text-gray-600 hover:bg-gray-200";
+                }
+            });
+        }
+
+        // 🌟 5 Expanded Premium Customer Testimonials Matrix Pool Block
+        const testimonialData = {
+            zh: [
+                { text: "服务非常到位！车况极新，去西港出差提车速度飞快，下次接待贵宾必然首选 VHV888。", user: "张先生 — 集团企业高管" },
+                { text: "租用迈巴赫S680服务体验无敌。手续办理只需要几分钟，高效靠谱，给西港的老板们强烈推荐！", user: "王总 — 华商投资人" },
+                { text: "埃尔法保姆车非常干净，司机服务态度极好，路况熟悉。长期合作的不二选择。", user: "李女士 — 商务代表" },
+                { text: "路虎越野性能太强了，去外省矿区办事租用很放心，车辆保养得非常完美，性能满分！", user: "陈董 — 矿业项目负责人" },
+                { text: "24小时客服响应很快，半夜有临时行程变动也马上帮我协调解决了，非常靠谱的汽车城！", user: "刘经理 — 跨境电商总监" }
+            ],
+            en: [
+                { text: "Outstanding service quality! The Lexus was immaculate and booking from Sihanoukville airport was lightning fast.", user: "Michael K. — Corporate Director" },
+                { text: "Best luxury fleet option in Cambodia. Streamlined paperwork, professional logistics, and pristine car models.", user: "David L. — International Venture Investor" },
+                { text: "The Alphard van was incredibly clean, and the booking process was seamless. Highly recommended for executive stays.", user: "Sarah W. — Operations Head" },
+                { text: "Rented a Land Cruiser for regional trips. Vehicle condition was absolutely perfect and robust. Five stars!", user: "James R. — Project Engineering Consultant" },
+                { text: "Flawless 24/7 support channel. They accommodated my midnight flight adjustment instantly without any issues.", user: "Alex M. — Tech Entrepreneur" }
+            ],
+            km: [
+                { text: "សេវាកម្មល្អឥតខ្ចោះ! រថយន្តថ្មីស្អាត ការរៀបចំឯកសារជួលលឿនរហ័សទាន់ចិត្តសម្រាប់ដំណើរការអាជីវកម្មនៅកំពង់សោម។", user: "លោក ឧកញ៉ា សុខា — ប្រធានក្រុមហ៊ុន" },
+                { text: "រថយន្ត Maybach ទំនើប និងមានផាសុកភាពខ្ពស់处理។ បុគ្គលិករៀបចំបានរហ័ស និងមានទំនួលខុសត្រូវខ្ពស់ណាស់។", user: "កញ្ញា ធីតា — វិនិយោគិន" },
+                { text: "ឡាន Alphard ស្អាតខ្លាំង បុគ្គលិករួសរាយរាក់ទាក់។ ជម្រើសដ៏ល្អបំផុតសម្រាប់ក្រុមហ៊ុនយើងខ្ញុំ។", user: "លោក វណ្ណា — អ្នកគ្រប់គ្រងទូទៅ" },
+                { text: "ឡាន Land Cruiser ទំនើប និងខ្លាំង ធ្វើដំណើរទៅខេត្តដាច់ស្រយាលបានយ៉ាងជឿជាក់ ថែទាំបានល្អណាស់។", user: "លោក ពិសិដ្ឋ — វិស្វករគម្រោង" },
+                { text: "ក្រុមការងារបម្រើអតិថិជន ២៤ម៉ោង ឆ្លើយតបរហ័ស ទោះបីជាខ្ញុំផ្លាស់ប្តូរម៉ោងហោះហើរកណ្តាលអធ្រាត្រក៏ដោយ។", user: "លោកស្រី សុភី — ប្រធានអាជីវកម្ម" }
+            ]
+        };
+
+        let currentReviewIndex = 0;
+        let globalLang = 'zh';
+
+        function rotateReviewEngine() {
+            currentReviewIndex = (currentReviewIndex + 1) % testimonialData[globalLang].length;
+            document.getElementById('rev-text').textContent = testimonialData[globalLang][currentReviewIndex].text;
+            document.getElementById('rev-user').textContent = testimonialData[globalLang][currentReviewIndex].user;
+        }
+        setInterval(rotateReviewEngine, 6000); 
+
+        // Localized Complete Translation Matrix
+        const translations = {
+            zh: {
+                label: "中文",
+                data: {
+                    "sub-logo": "VHV888 汽车城",
+                    "nav-fleet": "查看车辆", "nav-features": "服务特色", "nav-reviews": "用户评价", "nav-location": "门店地址",
+                    "mob-fleet": "查看车辆", "mob-features": "服务特色", "mob-reviews": "用户评价", "mob-location": "门店地址",
+                    "cta-telegram": "Telegram 咨询", "mob-telegram-btn": "Telegram 立即咨询",
+                    "hero-title": "柬埔寨首选租车服务", "hero-subtitle": "豪华车队 · 尊享体验 · 24小时客服", "hero-btn": "查看车辆",
+                    "features-title": "为什么选择 VHV888 AUTO ?", "features-subtitle": "我们致力于在柬埔寨西哈努克港(西港)提供最优质、最便捷的豪华租车服务。",
+                    "f1-title": "西港本地服务", "f1-desc": "我们深耕西港，熟悉本地路况和需求，为您提供最专业的建议。",
+                    "f2-title": "24/7客服支持", "f2-desc": "全天候在线客服，随时通过Telegram解答您的疑问，处理您的需求。",
+                    "f3-title": "手续简单快捷", "f3-desc": "我们简化租车流程，无需繁琐手续，让您轻松提车，畅行无忧。",
+                    "fleet-heading": "探索尊享车队",
+                    "filter-all": "全部车辆", "filter-mpv": "豪华 MPV", "filter-suv": "硬派 SUV", "filter-sedan": "高端 轿车",
+                    "c1-title": "雷克萨斯 LM300h", "c1-seat": "7 座", "c1-tag": "豪华MPV", "c1-desc": "顶级的商务接待与家庭出行之选，尽享奢华舒适。",
+                    "c2-title": "丰田 埃尔法", "c2-seat": "7 座", "c2-tag": "商务之星", "c2-desc": "被誉为\"明星保姆车\"，提供无与伦比的乘坐体验。",
+                    "c3-title": "迈巴赫 S680", "c3-seat": "5 座", "c3-tag": "旗舰豪车", "c3-desc": "尊贵象征，顶级奢华与先进科技完美融合，商务与尊享的不二之选。",
+                    "c4-title": "路虎 揽胜", "c4-seat": "5 座", "c4-tag": "全地形SUV", "c4-desc": "无惧复杂路况，越野性能与奢华内饰兼备，驾驭自由每一程。",
+                    "c5-title": "广汽传祺 GN8", "c5-seat": "7 座", "c5-tag": "舒适MPV", "c5-desc": "空间宽敞，配置丰富，是家庭与商务出行的可靠选择。",
+                    "c6-title": "丰田 陆巡", "c6-seat": "7 座", "c6-tag": "越野之王", "c6-desc": "征服各种复杂路况，安全与性能的完美结合。",
+                    "rev-heading": "用户真实评价",
+                    "loc-heading": "门店地址 & 营业详情", "loc-tag": "西港直营总部", "loc-map-action": "打开谷歌地图导航",
+                    "loc-time-lbl": "营业时间", "loc-time-val": "周一至周日 24小时全天候服务",
+                    "loc-contact-lbl": "服务热线", "fab-call": "电话联系",
+                    "contact-title": "准备好开启您的旅程了吗?", "contact-subtitle": "立即联系我们的客服，预订您的专属座驾。我们期待为您服务！", "contact-btn-text": "通过Telegram联系我们",
+                    "footer-sublogo": "VHV888 汽车城", "f-contact-lbl": "联系方式:", "f-loc-lbl": "服务地点:", "f-loc-val": "柬埔寨 西哈努克港 (西港)",
+                    "dock-fleet": "车队", "dock-contact": "门店"
+                }
+            },
+            en: {
+                label: "English",
+                data: {
+                    "sub-logo": "VHV888 Auto City",
+                    "nav-fleet": "Our Fleet", "nav-features": "Features", "nav-reviews": "Reviews", "nav-location": "Location",
+                    "mob-fleet": "Our Fleet", "mob-features": "Features", "mob-reviews": "Reviews", "mob-location": "Location",
+                    "cta-telegram": "Telegram Chat", "mob-telegram-btn": "Chat on Telegram Now",
+                    "hero-title": "Cambodia's Premier Rental", "hero-subtitle": "Luxury Fleet • Elite VIP Experience • 24/7 Service Desk", "hero-btn": "Explore Fleet",
+                    "features-title": "Why Choose VHV888 AUTO?", "features-subtitle": "We are dedicated to providing premium, seamless luxury car services tailored for Sihanoukville, Cambodia.",
+                    "f1-title": "Sihanoukville Local Experts", "f1-desc": "Deeply rooted in Sihanoukville, we understand local navigation and demands to give you premium advice.",
+                    "f2-title": "24/7 VIP Assistance", "f2-desc": "Round-the-clock operators ready to fulfill or answer your vehicle updates via Telegram instantly.",
+                    "f3-title": "Simplified Checkout", "f3-desc": "Skip long lines. Our simplified paperwork delivers keys safely to your location in minutes.",
+                    "fleet-heading": "Explore Our Elite Fleet",
+                    "filter-all": "All Fleet", "filter-mpv": "Elite MPVs", "filter-suv": "Premium SUVs", "filter-sedan": "Sedans",
+                    "c1-title": "Lexus LM300h", "c1-seat": "7 Seats", "c1-tag": "Premium MPV", "c1-desc": "The ultimate option for high-profile corporate receptions and elite family trips.",
+                    "c2-title": "Toyota Alphard", "c2-seat": "7 Seats", "c2-tag": "Executive Star", "c2-desc": "Celebrated luxury van providing an unparalleled smooth riding experience.",
+                    "c3-title": "Maybach S680", "c3-seat": "5 Seats", "c3-tag": "Flagship Sedan", "c3-desc": "Ultimate luxury combined with top technology, the flawless choice for prestige presence.",
+                    "c4-title": "Range Rover", "c4-seat": "5 Seats", "c4-tag": "Luxury SUV", "c4-desc": "Conquer all roads easily with dominant offroad capability and high-end inner comfort.",
+                    "c5-title": "GAC GN8", "c5-seat": "7 Seats", "c5-tag": "Cozy MPV", "c5-desc": "Spacious layout with wealthy configurations, highly reliable for family and company transits.",
+                    "c6-title": "Toyota Land Cruiser", "c6-seat": "7 Seats", "c6-tag": "Offroad King", "c6-desc": "Mastering rough terrains flawlessly with a perfect combination of safety and robust power.",
+                    "rev-heading": "Client Testimonials",
+                    "loc-heading": "Showroom Location & Hours", "loc-tag": "HQ Showroom Sihanoukville", "loc-map-action": "Open Google Maps Navigation",
+                    "loc-time-lbl": "Opening Hours", "loc-time-val": "Monday - Sunday: 24/7 Premium Coverage",
+                    "loc-contact-lbl": "Hotlines", "fab-call": "Call Phone",
+                    "contact-title": "Ready to Start Your Journey?", "contact-subtitle": "Contact our VIP customer lines now to reserve your exclusive ride. We are ready to serve you!", "contact-btn-text": "Connect via Telegram Now",
+                    "footer-sublogo": "VHV888 AUTO CITY CO.", "f-contact-lbl": "Contact:", "f-loc-lbl": "Location:", "f-loc-val": "Sihanoukville, Cambodia",
+                    "dock-fleet": "Fleet", "dock-contact": "Showroom"
+                }
+            },
+            km: {
+                label: "ភាសាខ្មែរ",
+                data: {
+                    "sub-logo": "ទីក្រុងរថយន្ត VHV888",
+                    "nav-fleet": "បញ្ជីរថយន្ត", "nav-features": "សេវាកម្មយើងខ្ញុំ", "nav-reviews": "ការវាយតម្លៃ", "nav-location": "ទីតាំងហាង",
+                    "mob-fleet": "បញ្ជីរថយន្ត", "mob-features": "សេវាកម្មយើងខ្ញុំ", "mob-reviews": "ការវាយតម្លៃ", "mob-location": "ទីតាំងហាង",
+                    "cta-telegram": "ពិគ្រោះតាម Telegram", "mob-telegram-btn": "ទាក់ទងមកយើងខ្ញុំឥឡូវនេះ",
+                    "hero-title": "សេវាកម្មជួលរថយន្តឈានមុខគេនៅកម្ពុជា", "hero-subtitle": "រថយន្តប្រណីតៗ · បទពិសោធន៍ដ៏ល្អឥតខ្ចោះ · ជំនួយការទូរស័ព្ទ ២៤ម៉ោង", "hero-btn": "មើលរថយន្ត",
+                    "features-title": "ហេតុអ្វីជ្រើសរើស VHV888 AUTO?", "features-subtitle": "យើងខ្ញុំប្តេជ្ញាផ្តល់ជូននូវសេវាកម្មជួលរថយន្តដ៏ល្អបំផុត និងងាយស្រួលបំផុតនៅក្នុងក្រុងព្រះសីហនុ។",
+                    "f1-title": "សេវាកម្មក្នុងក្រុងព្រះសីហនុ", "f1-desc": "យើងខ្ញុំស្គាល់ច្បាស់ពីស្ថានភាពផ្លូវថ្នល់ និងតម្រូវការក្នុងស្រុក ដើម្បីផ្តល់ដំបូន្មានប្រកបដោយវិជ្ជាជីវៈបំផុតដល់លោកអ្នក។",
+                    "f2-title": "ជំនួយការអតិថិជន ២៤/៧", "f2-desc": "សេវាកម្មបម្រើអតិថិជនអនឡាញពេញ ២៤ ម៉ោង ដើម្បីឆ្លើយសំណួរ និងដោះស្រាយតម្រូវការរបស់អ្នកតាមរយៈ Telegram។",
+                    "f3-title": "ឯកសារសាមញ្ញ និងរហ័ស", "f3-desc": "យើងខ្ញុំធ្វើឱ្យដំណើរការជួលរថយន្តមានភាពសាមញ្ញ មិនមាននីតិវិធីស្មុគស្មាញ ធ្វើឱ្យការធ្វើដំណើររបស់អ្នកប្រកបដោយភាពរលូន។",
+                    "fleet-heading": "ស្វែងរករថយន្តប្រណីតៗរបស់យើងខ្ញុំ",
+                    "filter-all": "រថយន្តទាំងអស់", "filter-mpv": "ឡាន MPV", "filter-suv": "ឡាន SUV", "filter-sedan": "ឡានទំនើប",
+                    "c1-title": "Lexus LM300h", "c1-seat": "៧ កៅអី", "c1-tag": "ឡាន MPV ប្រណីត", "c1-desc": "ជម្រើសដ៏ល្អបំផុតសម្រាប់ការទទួលភ្ញៀវអាជីវកម្មកម្រិតខ្ពស់ ឬការធ្វើដំណើរជាលក្ខណៈគ្រួសារ។",
+                    "c2-title": "Toyota Alphard", "c2-seat": "៧ កៅអី", "c2-tag": "ផ្កាយអាជីវកម្ម", "c2-desc": "ទទួលបានការកោតសរសើរថាជា \"ឡានមេផ្ទះលំដាប់តារា\" ផ្តល់នូវបទពិសោធន៍ធ្វើដំណើរប្រកបដោយផាសុកភាពខ្ពស់ fly។",
+                    "c3-title": "Maybach S680", "c3-seat": "៥ កៅអី", "c3-tag": "រថយន្តទំនើបបំផុត", "c3-desc": "និមិត្តសញ្ញានៃភាពថ្លៃថ្នូរ ភាពប្រណីតលំដាប់កំពូល និងបច្ចេកវិទ្យาទំនើប រួមបញ្ចូលគ្នាយ៉ាងល្អឥតខ្ចោះ។",
+                    "c4-title": "Range Rover", "c4-seat": "៥ កៅអី", "c4-tag": "រថយន្ត SUV គ្រប់ស្ថានភាពផ្លូវ", "c4-desc": "មិនខ្លាចស្ថានភាពផ្លូវស្មុគស្មាញ ដំណើរការល្អឥតខ្ចោះ និងផ្ទៃក្នុងប្រណីតសម្រាប់ការធ្វើដំណើរដ៏រីករាយ។",
+                    "c5-title": "GAC GN8", "c5-seat": "៧ កៅអី", "c5-tag": "ឡាន MPV មានផាសុកភាព", "c5-desc": "កន្លែងធំទូលាយ គ្រឿងបរិក្ខារសម្បូរបែប ជាជម្រើសដ៏គួរឱ្យទុកចិត្តសម្រាប់គ្រួសារ និងការធ្វើដំណើរអាជីវកម្ម។",
+                    "c6-title": "Toyota Land Cruiser", "c6-seat": "៧ កៅអី", "c6-tag": "ស្តេចបិទផ្លូវ", "c6-desc": "យកឈ្នះគ្រប់ស្ថានភាពផ្លូវលំបាកៗ ការរួមបញ្ចូលគ្នាដ៏ល្អឥតខ្ចោះនៃសុវត្ថិភាព និងដំណើរការដ៏រឹងមាំ។",
+                    "rev-heading": "ការវាយតម្លៃពិតប្រាកដពីអតិថិជន",
+                    "loc-heading": "ទីតាំងហាង & ព័ត៌មានលម្អិត", "loc-tag": "ទីស្នាក់ការកណ្តាលក្រុងព្រះសីហនុ", "loc-map-action": "បើកគំនូសផ្លូវ Google Maps",
+                    "loc-time-lbl": "ម៉ោងធ្វើការ", "loc-time-val": "ថ្ងៃច័ន្ទ ដល់ ថ្ងៃអាទិត្យ ៖ បម្រើសេវាកម្ម ២៤ ម៉ោង",
+                    "loc-contact-lbl": "ខ្សែទូរស័ព្ទបន្ទាន់", "fab-call": "ហៅទូរស័ព្ទ",
+                    "contact-title": "តើអ្នកត្រៀមខ្លួនសម្រាប់ការធ្វើដំណើរហើយឬនៅ?", "contact-subtitle": "ទាក់ទងមកកាន់ផ្នែកបម្រើអតិថិជនរបស់យើងឥឡូវនេះ ដើម្បីកក់រថយន្តផ្តាច់មុខរបស់អ្នក។យើងខ្ញុំរីករាយនឹងបម្រើអ្នក!", "contact-btn-text": "ទាក់ទងមកយើងខ្ញុំតាម Telegram",
+                    "footer-sublogo": "ទីក្រុងរថយន្ត VHV888", "f-contact-lbl": "联系方式:", "f-loc-lbl": "ទីតាំងសេវាកម្ម:", "f-loc-val": "ក្រុងព្រះសីហនុ, ប្រទេសកម្ពុជា",
+                    "dock-fleet": "រថយន្ត", "dock-contact": "ទីតាំង"
+                }
+            }
+        };
+
+        function applyLanguage(lang) {
+            globalLang = lang;
+            currentReviewIndex = 0; 
+            const labelEl = document.getElementById('active-lang-lbl');
+            if(labelEl) labelEl.textContent = translations[lang].label;
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : (lang === 'km' ? 'km' : 'en');
+
+            for (const key in translations[lang].data) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = translations[lang].data[key];
+                }
+            }
+
+            document.querySelectorAll('.rent-unit').forEach(el => {
+                el.textContent = lang === 'zh' ? '月' : (lang === 'km' ? 'ខែ' : 'mo');
+            });
+            document.querySelectorAll('.rent-btn-txt').forEach(el => {
+                el.textContent = lang === 'zh' ? '立即租赁' : (lang === 'km' ? 'ជួលឥឡូវនេះ' : 'Rent Now');
+            });
+
+            const revTextEl = document.getElementById('rev-text');
+            const revUserEl = document.getElementById('rev-user');
+            if(revTextEl && revUserEl) {
+                revTextEl.textContent = testimonialData[lang][0].text;
+                revUserEl.textContent = testimonialData[lang][0].user;
+            }
+
+            if(dropdownPanel) dropdownPanel.classList.remove('custom-dropdown-open');
+        }
     </script>
 </body>
 </html>
