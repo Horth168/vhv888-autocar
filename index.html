@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VHV888 AUTO | រថយន្តជួល | 汽车租赁 | Car Rental Service</title>
-    <link class="rounded-xl" rel="icon" href="logo.jpg" type="image/jpg">
+    <link rel="icon" href="logo.jpg" type="image/jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,14 @@
         #carModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:9999; overflow-y:auto; }
         .modal-inner { max-width:700px; margin:20px auto; background:#111827; border-radius:20px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.8); }
         .modal-img-wrap { position:relative; background:#000; }
-        .modal-img-wrap img { width:100%; max-height:440px; object-fit:cover; display:block; }
+        /* FIXED: uniform image size for modal — 16:9 aspect ratio, no vertical/horizontal chaos */
+        .modal-img-wrap img {
+            width:100%;
+            height:400px;
+            object-fit:cover;
+            object-position:center;
+            display:block;
+        }
         .modal-nav-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(220,38,38,.85); color:#fff; border:none; border-radius:50%; width:42px; height:42px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; }
         .modal-nav-btn:hover { background:#dc2626; }
         .modal-nav-btn.prev { left:12px; }
@@ -34,13 +41,24 @@
         .modal-thumb-row { display:flex; gap:6px; padding:10px 16px; overflow-x:auto; }
         .modal-thumb-row::-webkit-scrollbar { height:4px; }
         .modal-thumb-row::-webkit-scrollbar-thumb { background:#374151; border-radius:4px; }
-        .modal-thumb { width:72px; height:52px; object-fit:cover; border-radius:8px; cursor:pointer; opacity:.55; transition:.2s; flex-shrink:0; border:2px solid transparent; }
+        /* FIXED: uniform thumbnail size */
+        .modal-thumb { width:72px; height:52px; object-fit:cover; object-position:center; border-radius:8px; cursor:pointer; opacity:.55; transition:.2s; flex-shrink:0; border:2px solid transparent; }
         .modal-thumb.active, .modal-thumb:hover { opacity:1; border-color:#dc2626; }
         .modal-body { padding:20px; }
         .modal-close-btn { position:absolute; top:12px; right:14px; background:rgba(220,38,38,.9); color:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10; }
 
         /* ── Car Card ── */
         .car-card { cursor:pointer; }
+        /* FIXED: uniform card thumbnail — 16:9 locked */
+        .car-card-img {
+            width:100%;
+            height:210px;
+            object-fit:cover;
+            object-position:center;
+            display:block;
+            transition: transform 0.5s;
+        }
+        .car-card:hover .car-card-img { transform: scale(1.05); }
 
         /* ── Badge pulse ── */
         @keyframes pulse-soft { 0%,100%{opacity:1} 50%{opacity:.7} }
@@ -52,16 +70,33 @@
         .map-overlay-card { background:linear-gradient(135deg,#111827,#1f2937); border:1px solid #374151; border-radius:16px; padding:24px; }
         .map-stat { background:#1f2937; border:1px solid #374151; border-radius:12px; padding:14px 16px; text-align:center; }
 
-        /* ── Telegram Banner ── */
-        .tg-banner { background: linear-gradient(135deg, #0088cc 0%, #006fa8 50%, #004d8a 100%); }
-        .tg-glow { box-shadow: 0 0 40px rgba(0,136,204,0.4); }
-
         /* ── Category Filter ── */
         .filter-btn { transition: all 0.2s; }
         .filter-btn.active { background:#dc2626; color:#fff; }
 
-        /* ── Price Badge ── */
-        .price-hot { background: linear-gradient(135deg,#dc2626,#9b1c1c); }
+        /* ── Related Cars Section ── */
+        .related-section { border-top: 1px solid #374151; padding-top: 16px; margin-top: 4px; }
+        .related-scroll { display:flex; gap:10px; overflow-x:auto; padding-bottom:8px; }
+        .related-scroll::-webkit-scrollbar { height:3px; }
+        .related-scroll::-webkit-scrollbar-thumb { background:#374151; border-radius:4px; }
+        .related-card { flex-shrink:0; width:130px; cursor:pointer; border-radius:12px; overflow:hidden; background:#1f2937; border:2px solid transparent; transition:.2s; }
+        .related-card:hover { border-color:#dc2626; }
+        .related-card img { width:130px; height:80px; object-fit:cover; object-position:center; display:block; }
+        .related-card-title { padding:6px 8px; font-size:10px; font-weight:700; color:#e5e7eb; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+        /* ── Share link box ── */
+        .share-box { background:#1f2937; border:1px solid #374151; border-radius:12px; padding:10px 14px; display:flex; gap:8px; align-items:center; }
+        .share-box input { background:transparent; border:none; outline:none; color:#9ca3af; font-size:11px; flex:1; min-width:0; }
+        .share-copy-btn { background:#dc2626; color:#fff; border:none; border-radius:8px; padding:6px 10px; font-size:10px; font-weight:700; cursor:pointer; flex-shrink:0; transition:.2s; white-space:nowrap; }
+        .share-copy-btn:hover { background:#b91c1c; }
+        .share-copy-btn.copied { background:#16a34a; }
+
+        /* ── Fast Rental Telegram ── */
+        .fast-rental-btn { background: linear-gradient(135deg, #0099ff, #0066cc); }
+
+        @media (max-width: 640px) {
+            .modal-img-wrap img { height: 260px; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 select-none antialiased">
@@ -138,34 +173,13 @@
             <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-medium tracking-wide" style="text-shadow:0 2px 8px rgba(0,0,0,0.85);" id="hero-subtitle">豪华车队 · 尊享体验 · 24小时客服</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#fleet" class="inline-block bg-red-600 text-white font-bold py-3.5 px-10 rounded-xl hover:bg-red-700 active:scale-95 transition-all text-lg shadow-xl" id="hero-btn">查看车辆</a>
-                <a href="https://t.me/v88autocar168" target="_blank" class="inline-flex items-center gap-2 bg-sky-500 text-white font-bold py-3.5 px-8 rounded-xl hover:bg-sky-400 active:scale-95 transition-all text-base shadow-xl" id="hero-tg-btn">
-                    <i class="fab fa-telegram text-lg"></i> <span id="hero-tg-txt">Telegram频道</span>
+                <a href="https://t.me/Ai520z" target="_blank" class="inline-flex items-center gap-2 bg-sky-500 text-white font-bold py-3.5 px-8 rounded-xl hover:bg-sky-400 active:scale-95 transition-all text-base shadow-xl" id="hero-tg-btn">
+                    <i class="fab fa-telegram text-lg"></i> <span id="hero-tg-txt">快速租车</span>
                 </a>
             </div>
         </div>
         <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 text-gray-400/80 animate-bounce hidden sm:block">
             <i data-feather="chevrons-down" class="w-6 h-6"></i>
-        </div>
-    </section>
-
-    <!-- ══ TELEGRAM CHANNEL BANNER ══ -->
-    <section class="tg-banner tg-glow py-5">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="bg-white/20 p-3 rounded-2xl">
-                        <i class="fab fa-telegram text-white text-3xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-white font-black text-lg leading-tight" id="tg-banner-title">加入我们的Telegram官方频道</p>
-                        <p class="text-sky-100 text-sm font-medium" id="tg-banner-sub">获取最新车辆信息、优惠活动及实时更新</p>
-                    </div>
-                </div>
-                <a href="https://t.me/v88autocar168" target="_blank" class="flex-shrink-0 bg-white text-sky-600 font-black py-3 px-8 rounded-xl hover:bg-sky-50 active:scale-95 transition-all shadow-lg flex items-center gap-2">
-                    <i class="fab fa-telegram text-lg"></i>
-                    <span id="tg-banner-btn">@v88autocar168</span>
-                </a>
-            </div>
         </div>
     </section>
 
@@ -192,9 +206,9 @@
                     <p class="text-gray-600 text-sm leading-relaxed" id="f3-desc">简化租车流程，无需繁琐手续，轻松提车畅行。</p>
                 </div>
                 <div class="flex flex-col items-center p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="bg-sky-50 text-sky-600 rounded-2xl p-4 mb-5 shadow-inner"><i class="fab fa-telegram text-2xl"></i></div>
-                    <h3 class="text-lg font-bold mb-2 text-gray-900" id="f4-title">Telegram频道</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed" id="f4-desc">关注我们的频道，获取最新车辆及优惠信息。</p>
+                    <div class="bg-sky-50 text-sky-600 rounded-2xl p-4 mb-5 shadow-inner"><i data-feather="zap" class="w-8 h-8"></i></div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-900" id="f4-title">快速租车</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" id="f4-desc">通过 @Ai520z 快速询价，即时响应，极速出发。</p>
                 </div>
             </div>
         </div>
@@ -208,919 +222,20 @@
 
             <!-- Category Filter -->
             <div class="flex flex-wrap justify-center gap-2 mb-10" id="filter-bar">
-                <button class="filter-btn active bg-red-600 text-white font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('all')" id="filter-all">全部</button>
-                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('suv')" id="filter-suv">SUV</button>
-                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('mpv')" id="filter-mpv">MPV</button>
-                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('sedan')" id="filter-sedan">轿车</button>
-                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('sports')" id="filter-sports">跑车</button>
-                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('truck')" id="filter-truck">皮卡</button>
+                <button class="filter-btn active bg-red-600 text-white font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('all',this)" id="filter-all">全部</button>
+                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('suv',this)" id="filter-suv">SUV</button>
+                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('mpv',this)" id="filter-mpv">MPV</button>
+                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('sedan',this)" id="filter-sedan">轿车</button>
+                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('sports',this)" id="filter-sports">跑车</button>
+                <button class="filter-btn bg-gray-200 text-gray-700 font-bold text-xs py-2 px-4 rounded-full" onclick="filterCars('truck',this)" id="filter-truck">皮卡</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7" id="fleet-grid">
-
-                <!-- 1. Mercedes-Benz 2015-2020 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('mercedes')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="mercedes 15 up 20/mercedes 15 up 20 (01).jpg" alt="Mercedes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail" id="badge-avail-1">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg" id="badge-photos-1">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight" id="c1-title">奔驰</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2" id="c1-year">2015 – 2020</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c1-seat">5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c1-tag">豪华轿车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1" id="c1-desc">德系豪华工艺，精致内饰体验。适合商务出行、机场接送及高端行政旅途。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,800<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium" id="c1-price-note">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Toyota Alphard -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('alphard')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="alphard 20 up 25/alphard 20 up 25 (01).jpg" alt="Alphard" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail" id="badge-avail-2">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg" id="badge-photos-2">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight" id="c2-title">丰田 埃尔法</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2" id="c2-year">2020 – 2025</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c2-seat">7 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c2-tag">豪华MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1" id="c2-desc">明星保姆车首选 — 宽敞VIP舱、豪华座椅、超平顺驾乘体验。商务接待与团队出行的最佳之选。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,300<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium" id="c2-price-note">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. BMW X6 2023 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('bmw_x6')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="bmw x6 2023/bmw x6 2023 (01).jpg" alt="BMW X6" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail" id="badge-avail-3">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg" id="badge-photos-3">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight" id="c3-title">宝马 X6</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2" id="c3-year">2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c3-seat">5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c3-tag">运动SAV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1" id="c3-desc">运动Coupe SUV造型，双涡轮增压动力，M运动套件，霸气路感。追求性能与尊贵的不二选择。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$3,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium" id="c3-price-note">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. Hyundai Staria -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('staria')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="staria 2023/staria 2023 (01).jpg" alt="Hyundai Staria" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail" id="badge-avail-4">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg" id="badge-photos-4">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight" id="c4-title">现代 斯塔利亚</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2" id="c4-year">2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c4-seat">9 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span id="c4-tag">家庭MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1" id="c4-desc">未来感太空厢式造型，宽敞座位，全景天窗，舒适乘坐。家庭出游、员工接送的绝佳之选。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,600<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium" id="c4-price-note">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. GAC GN8 VIP 2025 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('gac_gn8_vip')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="gac gn8 vip 25/gac gn8 vip 25 (01).jpg" alt="GAC GN8 VIP" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight c5-title">传祺 GN8 VIP</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2 c5-year">2025</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span class="c5-seat">7 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span class="c5-tag">VIP MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1 c5-desc">2025款传祺GN8 VIP版，顶级商务配置，超大空间，适合高端商务接待及VIP专属出行。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,100<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium c5-note">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. Lexus LX570 2018 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('lexus_570')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="lexus 570 18/lexus 570 18 (01).jpg" alt="Lexus LX570" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">雷克萨斯 LX570</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2018</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>8 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">雷克萨斯旗舰越野SUV，强悍越野性能结合顶级豪华内饰，适合越野探险与高端出行。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,700<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. Land Cruiser 2012-2023 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('landcruiser')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="land cruiser 12 up 23/land cruiser 12 up 23 (01).jpg" alt="Land Cruiser" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">丰田 陆巡</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2012 – 2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>8 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>越野SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">世界顶级越野王者，强悍四驱系统，可靠耐用，适合柬埔寨各种路况的商务及探险出行。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8. Ford Raptor F-150 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('raptor')" data-category="truck">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="raptor f-150 16 up 20/raptor f-150 16 up 20 (01).jpg" alt="Raptor F-150" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">福特 猛禽 F-150</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2016 – 2020</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>皮卡</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">传奇猛禽越野皮卡，高性能双涡轮发动机，专属越野悬架，霸气外观，适合各种地形探险。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 9. Mercedes-Benz Coupe 2023 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('mb_coupe')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="mercedes benz coupe 23/mercedes benz coupe 23 (01).jpg" alt="Mercedes Coupe" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">奔驰 Coupe</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>4 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华Coupe</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">2023款奔驰Coupe，流线型外观设计，高端运动性能与豪华品质完美融合，彰显个性品位。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,700<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 10. Range Rover 2023 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('rr_2023')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="range rover 2023/range rover 2023 (01).jpg" alt="Range Rover 2023" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">VIP</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">路虎 揽胜</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>顶级SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">2023款全新揽胜，英国皇室御用座驾，极致奢华内饰，出色越野能力，诠释真正的豪华SUV。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$9,000+<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租（询价）</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 11. Lexus LM350h 2025 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('lexus_lm')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="lexus lm350h 2025/lexus lm350h 2025 (01).jpg" alt="Lexus LM350h" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">顶级</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">雷克萨斯 LM350h</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2025</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>4 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>混动</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">2025款雷克萨斯LM350h，私人飞机般的乘坐体验，顶级隔音、超奢华后排，VIP商务出行终极之选。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$8,000<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 12. Porsche 911 2015-2018 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('porsche')" data-category="sports">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="porches 911 15 up 18/porches 911 15 up 18 (01).jpg" alt="Porsche 911" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">保时捷 911</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2015 – 2018</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>2+2 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>PDK</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>跑车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">保时捷传奇跑车911，极致运驾乐趣，水平对置发动机，独特造型，体验真正的驾驶激情。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 13. Lexus NX200t 2017 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('lexus_nx')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="lexus nx200t 2017/lexus nx200t 2017 (01).jpg" alt="Lexus NX200t" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">雷克萨斯 NX200t</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2017</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">雷克萨斯NX200t，时尚动感造型，涡轮增压引擎，雷克萨斯品质保证，性价比极高的豪华之选。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,000<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 14. BMW 740i 2016-2020 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('bmw_740i')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="bmw 740I 16 up 20/bmw 740I 16 up 20 (01).jpg" alt="BMW 740i" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">宝马 740i</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2016 – 2020</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>行政豪华轿车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">宝马7系旗舰行政轿车，极致舒适与驾驶乐趣兼备，顶级内饰配置，商务出行的最佳座驾。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 15. GAC GN8 2024 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('gac_gn8')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="gac gn8 24/gac gn8 24 (01).jpg" alt="GAC GN8 2024" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">传祺 GN8</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2024</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>7 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">2024款传祺GN8，全新升级商务配置，宽敞舒适的7座空间，适合家庭及商务用车。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,800<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 16. BMW M4 2015 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('bmw_m4')" data-category="sports">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="bmw m4 15/bmw m4 15 (01).jpg" alt="BMW M4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">宝马 M4</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2015</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>4 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>DCT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>运动跑车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">宝马M4高性能跑车，3.0T双涡轮直列六缸引擎，M专属运动调校，纯粹赛道基因，激情驾驶体验。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,100<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 17. Mercedes G63 2021 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('g63')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="mercedes g63 21/mercedes g63 21 (01).jpg" alt="Mercedes G63" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">顶级</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">奔驰 G63 AMG</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2021</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>AMG SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">奔驰G63 AMG，G级传奇方盒子造型，4.0T V8双涡轮引擎，577马力，展示极致霸气与奢华。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$11,000<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 18. Mercedes GLS600 2015-2023 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('gls600')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="mercedes gls600 15 up 23/mercedes gls600 15 up 23 (01).jpg" alt="Mercedes GLS600" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">奔驰 GLS600</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2015 – 2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>7 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>旗舰SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">奔驰GLS旗舰SUV，三排7座豪华空间，顶级配置与舒适性，堪称SUV中的S级奢华体验。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,700<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 19. Cadillac 2022 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('cadillac')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="caddilac 22/caddilac 22 (01).jpg" alt="Cadillac" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">凯迪拉克</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2022</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>美系豪华</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">美国豪华品牌凯迪拉克2022款，大气豪华外观，舒适高端内饰，展现美式豪华驾乘风格。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$5,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 20. Range Rover 2014-2023 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('rr_old')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="range rover 14 up 23/range rover 14 up 23 (01).jpg" alt="Range Rover 14-23" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">6 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">路虎 揽胜</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2014 – 2023</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">路虎揽胜经典款，英国贵族血统，豪华舒适内饰，强大四驱系统，城市与越野均游刃有余。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,000<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">请联系了解价格</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 21. Mercedes C300 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('c300')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="mercedes c300/mercedes c300 (01).jpg" alt="Mercedes C300" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">奔驰 C300</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2015</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华轿车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">奔驰C300，精致运动与豪华完美结合，时尚外观与高品质内饰，适合日常商务及私人出行。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,200<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">请联系了解价格</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 22. Jeep 2020 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('jeep')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="jeep 20/jeep 20 (01).jpg" alt="Jeep" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">Jeep</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2020</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>越野SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">Jeep越野SUV，专业越野基因，强悍四驱系统，适合柬埔寨各类地形，探险出行的可靠选择。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,000<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">请联系了解价格</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 23. Audi Q8 2019 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('audi_q8')" data-category="suv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="audi q8 19/audi q8 19 (01).jpg" alt="Audi Q8" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">奥迪 Q8</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2019</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华SUV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">奥迪Q8旗舰SUV，动感Coupe造型，4.0T V8双涡轮，quattro四驱，极致豪华运动体验。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$2,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 24. Mazda BT50 2021 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('mazda_bt50')" data-category="truck">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="mazda bt50 21/mazda bt50 21 (01).jpg" alt="Mazda BT50" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">马自达 BT50</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2021</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>皮卡</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">2021款马自达BT50皮卡，可靠耐用，多功能实用，适合工作与户外探险两用。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$800<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 25. Alphard up LM300h 2015→2021 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('alphard_lm300h')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="Alphard up lm300h 15/Alphard up lm300h 15 (01).jpg" alt="Alphard up LM300h" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">升级改装</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">埃尔法 → 雷克萨斯 LM300h</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2015→2021</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>4 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>Hybrid</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>VIP MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">Toyota Alphard 2015 升级改装为 Lexus LM300h 2021外观，高端VIP座舱，升级体验。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,500<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 26. Lexus CT200h 2012 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('lexus_ct200h')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="lexus ct200h 12/lexus ct200h 12 (01).jpg" alt="Lexus CT200h" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">雷克萨斯 CT200h</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2012</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>Hybrid</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华混动</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">雷克萨斯CT200h混合动力轿车，省油环保，雷克萨斯品质内饰，舒适日常出行首选。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$600<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 27. Toyota Prius 2010 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('prius')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="toyota prius 10/toyota prius 10 (01).jpg" alt="Toyota Prius" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">丰田 普锐斯</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2010</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>Hybrid</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>混动轿车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">丰田普锐斯混合动力，超低油耗，环保出行，经济实惠，城市通勤的绝佳选择。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$550<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 28. Ford XL 2026 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('ford_xl')" data-category="truck">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="ford xl 26/ford xl 26 (01).jpg" alt="Ford XL" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">福特 XL</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2026</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>皮卡</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">2026款福特XL皮卡，强劲实用，宽大载货空间，适合工程作业与越野出行。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,300<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 29. Audi A7 up RS7 2012 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('audi_a7_rs7')" data-category="sedan">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="audi a7 up rs7 12/audi a7 up rs7 12 (01).jpg" alt="Audi A7 up RS7" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">升级改装</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">奥迪 A7 → RS7</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2012</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>5 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>运动轿车</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">奥迪A7 2012改装升级为RS7外观套件，sportback流线造型，四环豪华运动轿车。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,100<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 30. Toyota Alphard 2011 -->
-                <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('alphard_12')" data-category="mpv">
-                    <div class="relative bg-gray-200 h-56 overflow-hidden">
-                        <img src="alphard 12/alphard 12 (01).jpg" alt="Toyota Alphard 2011" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-green-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">可租赁</span>
-                        <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">5 张照片</span>
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <h3 class="text-xl font-black text-gray-900 leading-tight">丰田 埃尔法</h3>
-                            <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">2011</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="users" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>7 座</span></span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="cpu" class="w-3.5 h-3.5 mr-1 text-red-500"></i>AT</span>
-                            <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><i data-feather="tag" class="w-3.5 h-3.5 mr-1 text-red-500"></i><span>豪华MPV</span></span>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed flex-1">丰田埃尔法2011款，经典VIP厢式MPV，宽敞舒适，商务接送与家庭出行的可靠之选。</p>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                            <div>
-                                <p class="text-2xl font-black text-red-600">$1,000<span class="text-xs font-medium text-gray-400"> / <span class="rent-unit">月</span></span></p>
-                                <p class="text-[10px] text-gray-400 font-medium">月租</p>
-                            </div>
-                            <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
-                                <span class="rent-btn-txt">查看详情</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
+                <!-- Cards injected by JS -->
             </div>
         </div>
     </section>
+
     <section id="map-section" class="py-16 md:py-24 bg-gray-900">
         <div class="container mx-auto px-6 max-w-6xl">
             <div class="text-center mb-12">
@@ -1133,28 +248,20 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                <!-- Map -->
                 <div class="lg:col-span-2">
                     <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62412.79!2d103.5297!3d10.6093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310c6e98f3a3f4a3%3A0x1234567890abcdef!2sSihanoukville%2C%20Cambodia!5e0!3m2!1sen!2s!4v1717900000000!5m2!1sen!2s"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="VHV888 AUTO Location">
-                        </iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62412.79!2d103.5297!3d10.6093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310c6e98f3a3f4a3%3A0x1234567890abcdef!2sSihanoukville%2C%20Cambodia!5e0!3m2!1sen!2s!4v1717900000000!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="VHV888 AUTO Location"></iframe>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3 mt-4">
                         <a href="https://maps.app.goo.gl/hxkpzLu3vtp3bJpi6" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-white font-bold py-3 px-6 rounded-xl shadow-lg">
                             <i data-feather="navigation" class="w-4 h-4"></i> <span id="map-directions-btn">导航至车行</span>
                         </a>
-                        <a href="https://t.me/v88autocar168" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 active:scale-95 transition-all text-white font-bold py-3 px-6 rounded-xl shadow-lg">
+                        <a href="https://t.me/Ai520z" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 active:scale-95 transition-all text-white font-bold py-3 px-6 rounded-xl shadow-lg">
                             <i class="fab fa-telegram"></i> <span id="map-tg-btn">Telegram预约</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Info Cards -->
                 <div class="space-y-4">
                     <div class="map-overlay-card">
                         <h3 class="text-white font-black text-lg mb-4 flex items-center gap-2">
@@ -1188,13 +295,13 @@
                                 <i class="fab fa-telegram w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" style="font-size:14px;"></i>
                                 <div>
                                     <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">Telegram</p>
-                                    <a href="https://t.me/v88autocar168" target="_blank" class="text-sky-400 font-semibold hover:text-sky-300">@v88autocar168</a>
+                                    <a href="https://t.me/Ai520z" target="_blank" class="text-sky-400 font-semibold hover:text-sky-300">@Ai520z</a><br>
+                                    <a href="https://t.me/VuthaAi168" target="_blank" class="text-sky-400 font-semibold hover:text-sky-300">@VuthaAi168</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- QR Code -->
                     <div class="map-overlay-card flex flex-col items-center text-center">
                         <p class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3" id="map-qr-label">扫码查看位置</p>
                         <div class="bg-white p-2.5 rounded-xl shadow-inner mb-3">
@@ -1203,10 +310,9 @@
                         <p class="text-gray-500 text-xs" id="map-qr-desc">使用手机扫码直接导航</p>
                     </div>
 
-                    <!-- Stats -->
                     <div class="grid grid-cols-2 gap-3">
                         <div class="map-stat">
-                            <p class="text-red-500 text-2xl font-black">22+</p>
+                            <p class="text-red-500 text-2xl font-black">30+</p>
                             <p class="text-gray-400 text-xs font-bold mt-1" id="stat-cars">豪华车辆</p>
                         </div>
                         <div class="map-stat">
@@ -1221,15 +327,12 @@
 
     <!-- ══ CONTACT ══ -->
     <section id="contact" class="py-20 md:py-28 bg-gray-950 text-white relative overflow-hidden">
-        <!-- Decorative background elements -->
         <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
             <div class="absolute top-0 left-0 w-80 h-80 bg-red-700/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
             <div class="absolute bottom-0 right-0 w-96 h-96 bg-sky-700/10 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
-            <div class="absolute top-1/2 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-gray-700/40 to-transparent -translate-x-1/2 -translate-y-1/2"></div>
         </div>
 
         <div class="container mx-auto px-6 max-w-5xl relative z-10">
-            <!-- Section header -->
             <div class="text-center mb-16">
                 <div class="inline-flex items-center gap-2 bg-red-600/15 border border-red-600/30 text-red-400 text-xs font-bold px-5 py-2 rounded-full mb-5 tracking-widest uppercase">
                     <i data-feather="phone-call" class="w-3.5 h-3.5"></i>
@@ -1240,23 +343,22 @@
                 <p class="text-gray-400 max-w-xl mx-auto text-sm md:text-base font-medium leading-relaxed" id="contact-subtitle">立即通过Telegram或电话联系我们 — 快速、简单、无需等待。</p>
             </div>
 
-            <!-- Messaging Contacts -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                <!-- Telegram CS 1 -->
+                <!-- Fast Rental Telegram @Ai520z -->
                 <a href="https://t.me/Ai520z" target="_blank" class="group relative flex items-center gap-5 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-sky-500/60 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-sky-900/30 hover:shadow-2xl overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-br from-sky-600/0 to-sky-600/0 group-hover:from-sky-600/5 group-hover:to-sky-600/10 transition-all duration-300 rounded-2xl"></div>
                     <div class="relative bg-sky-500/20 group-hover:bg-sky-500/30 transition-colors border border-sky-500/30 p-4 rounded-2xl flex-shrink-0">
                         <i class="fab fa-telegram text-sky-400 text-2xl"></i>
                     </div>
                     <div class="relative flex-1 min-w-0">
-                        <p class="text-[10px] font-black text-sky-400 uppercase tracking-widest mb-1">Customer Service · KH &amp; ZH</p>
+                        <p class="text-[10px] font-black text-sky-400 uppercase tracking-widest mb-1" id="ct-fast-label">⚡ Fast Rental · KH &amp; ZH</p>
                         <p class="text-xl font-black text-white truncate">@Ai520z</p>
-                        <p class="text-gray-400 text-xs mt-0.5 font-medium">ភាសាខ្មែរ &amp; 中文 · Khmer &amp; Chinese</p>
+                        <p class="text-gray-400 text-xs mt-0.5 font-medium">ភាសាខ្មែរ &amp; 中文 · Fast Response</p>
                     </div>
                     <i data-feather="arrow-right" class="w-4 h-4 text-gray-600 group-hover:text-sky-400 group-hover:translate-x-1 transition-all flex-shrink-0 relative"></i>
                 </a>
 
-                <!-- Telegram CS 2 -->
+                <!-- CS Telegram @VuthaAi168 -->
                 <a href="https://t.me/VuthaAi168" target="_blank" class="group relative flex items-center gap-5 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-sky-400/60 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-sky-900/20 hover:shadow-2xl overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-br from-sky-500/0 to-sky-500/0 group-hover:from-sky-500/5 group-hover:to-sky-500/10 transition-all duration-300 rounded-2xl"></div>
                     <div class="relative bg-sky-400/20 group-hover:bg-sky-400/30 transition-colors border border-sky-400/30 p-4 rounded-2xl flex-shrink-0">
@@ -1271,7 +373,7 @@
                 </a>
             </div>
 
-            <!-- Taxi Service Banner -->
+            <!-- Taxi Banner -->
             <div class="relative bg-gradient-to-r from-amber-800/50 via-orange-700/40 to-amber-800/50 border border-amber-600/40 rounded-2xl p-6 mb-5 overflow-hidden shadow-xl">
                 <div class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full translate-x-1/3 -translate-y-1/3 blur-2xl pointer-events-none"></div>
                 <div class="relative flex items-start gap-5">
@@ -1289,7 +391,7 @@
                 </div>
             </div>
 
-            <!-- Phone numbers row -->
+            <!-- Phone row -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                 <a href="tel:087278778" class="group flex items-center gap-5 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-green-500/50 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
                     <div class="bg-green-500/15 border border-green-500/30 group-hover:bg-green-500/25 transition-colors p-4 rounded-2xl flex-shrink-0">
@@ -1311,9 +413,8 @@
                 </a>
             </div>
 
-            <!-- Social + Hours row -->
+            <!-- Social + Hours -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                <!-- Facebook -->
                 <a href="https://www.facebook.com/profile.php?id=61577064930158" target="_blank" class="group flex items-center gap-4 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-blue-500/50 rounded-2xl p-5 shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div class="bg-blue-600/15 border border-blue-600/30 group-hover:bg-blue-600/25 transition-colors p-3.5 rounded-xl flex-shrink-0">
                         <i class="fab fa-facebook-f text-blue-400 text-lg"></i>
@@ -1323,8 +424,6 @@
                         <p class="text-sm font-black text-white truncate">VHV888 AUTO</p>
                     </div>
                 </a>
-
-                <!-- TikTok -->
                 <a href="https://www.tiktok.com/@v88_auto_car?is_from_webapp=1&sender_device=pc" target="_blank" class="group flex items-center gap-4 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-gray-400/40 rounded-2xl p-5 shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div class="bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors p-3.5 rounded-xl flex-shrink-0">
                         <i class="fab fa-tiktok text-white text-lg"></i>
@@ -1334,8 +433,6 @@
                         <p class="text-sm font-black text-white truncate">@v88_auto_car</p>
                     </div>
                 </a>
-
-                <!-- Hours -->
                 <div class="flex items-center gap-4 bg-gradient-to-br from-red-900/20 to-gray-900 border border-red-800/30 rounded-2xl p-5 shadow-xl">
                     <div class="bg-red-600/20 border border-red-600/30 p-3.5 rounded-xl flex-shrink-0">
                         <i data-feather="clock" class="w-5 h-5 text-red-400"></i>
@@ -1357,12 +454,12 @@
         <p class="text-2xl font-black mb-1 text-red-600 tracking-wider">VHV888 AUTO</p>
         <p class="text-sm font-semibold text-gray-500 mb-6 tracking-widest" id="footer-sublogo">高端汽车租赁 · 柬埔寨</p>
         <div class="text-gray-400 space-y-1.5 text-sm max-w-md mx-auto">
-            <p><strong>Customer Service (KH/ZH):</strong> <a href="https://t.me/Ai520z" target="_blank" class="text-sky-400 hover:text-sky-300 transition-colors">@Ai520z</a></p>
+            <p><strong>Fast Rental (KH/ZH):</strong> <a href="https://t.me/Ai520z" target="_blank" class="text-sky-400 hover:text-sky-300 transition-colors">@Ai520z</a></p>
             <p><strong>Customer Service (KH/EN) &amp; Taxi:</strong> <a href="https://t.me/VuthaAi168" target="_blank" class="text-sky-400 hover:text-sky-300 transition-colors">@VuthaAi168</a></p>
             <p><strong id="f-ph-lbl">电话:</strong> <span class="text-white">087 278 778 / 076 668 9568</span></p>
         </div>
         <div class="flex justify-center space-x-5 my-7">
-            <a href="https://t.me/Ai520z" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-sky-600 hover:text-white transition-all text-gray-300" title="Telegram KH/ZH"><i class="fab fa-telegram text-lg"></i></a>
+            <a href="https://t.me/Ai520z" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-sky-600 hover:text-white transition-all text-gray-300" title="Telegram Fast Rental @Ai520z"><i class="fab fa-telegram text-lg"></i></a>
             <a href="https://t.me/VuthaAi168" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-sky-500 hover:text-white transition-all text-gray-300" title="Telegram KH/EN + Taxi"><i class="fab fa-telegram text-lg"></i></a>
             <a href="https://www.facebook.com/profile.php?id=61577064930158" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-all text-gray-300"><i class="fab fa-facebook-f text-lg"></i></a>
             <a href="https://www.tiktok.com/@v88_auto_car?is_from_webapp=1&sender_device=pc" target="_blank" class="bg-gray-800 p-3 rounded-full hover:bg-gray-600 hover:text-white transition-all text-gray-300"><i class="fab fa-tiktok text-lg"></i></a>
@@ -1378,7 +475,8 @@
     <div id="fab-menu-list" class="flex flex-col items-end gap-2 transform scale-75 opacity-0 pointer-events-none transition-all duration-300 origin-bottom-right">
         <a href="tel:087278778" class="flex items-center gap-2 bg-green-600 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>087 278 778</span> <i class="fas fa-phone"></i></a>
         <a href="tel:0766689568" class="flex items-center gap-2 bg-indigo-600 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>076 668 9568</span> <i class="fas fa-phone"></i></a>
-        <a href="https://t.me/v88autocar168" target="_blank" class="flex items-center gap-2 bg-sky-500 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>@v88autocar168</span> <i class="fab fa-telegram text-sm"></i></a>
+        <a href="https://t.me/Ai520z" target="_blank" class="flex items-center gap-2 bg-sky-500 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>@Ai520z</span> <i class="fab fa-telegram text-sm"></i></a>
+        <a href="https://t.me/VuthaAi168" target="_blank" class="flex items-center gap-2 bg-sky-600 text-white font-bold text-xs py-2 px-3 rounded-xl shadow-xl"><span>@VuthaAi168</span> <i class="fab fa-telegram text-sm"></i></a>
     </div>
     <button id="fab-master-btn" class="bg-red-600 text-white p-3.5 rounded-full shadow-2xl focus:outline-none hover:bg-red-700 transition-colors active:scale-90 flex items-center justify-center">
         <i data-feather="message-circle" id="fab-icon" class="w-6 h-6 animate-pulse"></i>
@@ -1391,9 +489,9 @@
         <i data-feather="truck" class="w-5 h-5 mb-0.5"></i>
         <span class="text-[10px] font-bold" id="dock-fleet">车队</span>
     </a>
-    <a href="https://t.me/v88autocar168" target="_blank" class="flex flex-col items-center justify-center bg-sky-500 text-white rounded-xl py-2 px-5 shadow-lg relative -top-3 scale-110 active:scale-95 transition-all">
+    <a href="https://t.me/Ai520z" target="_blank" class="flex flex-col items-center justify-center bg-sky-500 text-white rounded-xl py-2 px-5 shadow-lg relative -top-3 scale-110 active:scale-95 transition-all">
         <i class="fab fa-telegram text-lg"></i>
-        <span class="text-[9px] font-black uppercase tracking-wider mt-0.5">Telegram</span>
+        <span class="text-[9px] font-black uppercase tracking-wider mt-0.5" id="dock-tg">快速租车</span>
     </a>
     <a href="#contact" class="flex flex-col items-center justify-center text-gray-400 hover:text-red-500 transition-colors py-1">
         <i data-feather="phone-call" class="w-5 h-5 mb-0.5"></i>
@@ -1422,13 +520,36 @@
             </div>
             <p class="text-gray-400 text-sm mb-5" id="modalDesc"></p>
             <div class="flex flex-wrap gap-3 mb-5" id="modalSpecs"></div>
+
+            <!-- Share Link -->
+            <div class="mb-4">
+                <p class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2" id="modal-share-label">分享此车</p>
+                <div class="share-box">
+                    <i data-feather="link" class="w-4 h-4 text-gray-500 flex-shrink-0"></i>
+                    <input type="text" id="shareInput" readonly>
+                    <button class="share-copy-btn" id="shareCopyBtn" onclick="copyShareLink()">
+                        <span id="shareCopyTxt">复制</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contact Buttons -->
             <div class="bg-gray-800 rounded-2xl p-4 space-y-3">
                 <p class="text-gray-300 text-xs font-bold uppercase tracking-wider" id="modal-contact-label">立即预定此车</p>
-                <a href="https://t.me/v88autocar168" target="_blank" class="flex items-center gap-3 bg-sky-500 hover:bg-sky-400 transition-colors rounded-xl p-3 active:scale-95">
+                <!-- Fast Rental -->
+                <a href="https://t.me/Ai520z" target="_blank" class="flex items-center gap-3 bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-500 hover:to-sky-400 transition-colors rounded-xl p-3 active:scale-95">
                     <i class="fab fa-telegram text-white text-xl"></i>
                     <div>
-                        <p class="text-white font-black text-sm">Telegram频道</p>
-                        <p class="text-sky-100 text-xs">@v88autocar168</p>
+                        <p class="text-white font-black text-sm" id="modal-fast-label">⚡ 快速租车</p>
+                        <p class="text-sky-100 text-xs">@Ai520z</p>
+                    </div>
+                </a>
+                <!-- CS -->
+                <a href="https://t.me/VuthaAi168" target="_blank" class="flex items-center gap-3 bg-sky-700/60 hover:bg-sky-700 transition-colors rounded-xl p-3 active:scale-95">
+                    <i class="fab fa-telegram text-white text-xl"></i>
+                    <div>
+                        <p class="text-white font-black text-sm">Customer Service</p>
+                        <p class="text-sky-200 text-xs">@VuthaAi168</p>
                     </div>
                 </a>
                 <div class="grid grid-cols-2 gap-3">
@@ -1441,6 +562,12 @@
                         <p class="text-white font-black text-xs">076 668 9568</p>
                     </a>
                 </div>
+            </div>
+
+            <!-- Related Cars -->
+            <div class="related-section" id="relatedSection">
+                <p class="text-gray-300 text-xs font-bold uppercase tracking-wider mb-3" id="modal-related-label">相关车辆</p>
+                <div class="related-scroll" id="relatedCars"></div>
             </div>
         </div>
     </div>
@@ -1480,16 +607,22 @@ fabBtn.addEventListener('click', e => {
 });
 
 // ── Category Filter ──
-function filterCars(cat) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active','bg-red-600','text-white'));
-    document.querySelectorAll('.filter-btn').forEach(b => { b.classList.add('bg-gray-200','text-gray-700'); });
-    event.target.classList.add('active','bg-red-600','text-white');
-    event.target.classList.remove('bg-gray-200','text-gray-700');
-    document.querySelectorAll('.car-card').forEach(card => {
-        if(cat === 'all' || card.dataset.category === cat) {
-            card.parentElement.style.display = '';
+function filterCars(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active','bg-red-600','text-white');
+        b.classList.add('bg-gray-200','text-gray-700');
+    });
+    if (btn) {
+        btn.classList.add('active','bg-red-600','text-white');
+        btn.classList.remove('bg-gray-200','text-gray-700');
+    }
+    document.querySelectorAll('#fleet-grid > div').forEach(wrapper => {
+        const card = wrapper.querySelector('.car-card');
+        if (!card) return;
+        if (cat === 'all' || card.dataset.category === cat) {
+            wrapper.style.display = '';
         } else {
-            card.parentElement.style.display = 'none';
+            wrapper.style.display = 'none';
         }
     });
 }
@@ -1500,275 +633,324 @@ function filterCars(cat) {
 const carDB = {
     mercedes: {
         images: ['mercedes 15 up 20/mercedes 15 up 20 (01).jpg','mercedes 15 up 20/mercedes 15 up 20 (02).jpg','mercedes 15 up 20/mercedes 15 up 20 (03).jpg','mercedes 15 up 20/mercedes 15 up 20 (04).jpg','mercedes 15 up 20/mercedes 15 up 20 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'RWD' },
+        specs: { seats:'5', trans:'AT', drive:'RWD' }, category:'sedan',
         data: {
-            zh: { title:'奔驰', year:'2015 – 2020', price:'$1,800 / 月', desc:'德系豪华工艺，精致内饰体验。适合商务出行、机场接送及高端行政旅途。' },
-            en: { title:'Mercedes-Benz E-Class', year:'2015 – 2020', price:'$1,800 / month', desc:'Elegant German engineering with a premium cabin. Ideal for business trips, airport transfers, and executive travel.' },
-            km: { title:'Mercedes-Benz', year:'2015 – 2020', price:'$1,800 / ខែ', desc:'ការរចនារថយន្តអាល្លឺម៉ង់ប្រណីត ល្អសម្រាប់ដំណើរការអាជីវកម្ម ការដឹកពីអ្វីរដ្ឋ និងការធ្វើដំណើររបស់ប្រតិបត្តិករ។' }
+            zh: { title:'奔驰', year:'2015 – 2020', price:'$1,800 / 月', desc:'德系豪华工艺，精致内饰体验。适合商务出行、机场接送及高端行政旅途。', avail:'可租赁', tag:'豪华轿车', seat:'5 座' },
+            en: { title:'Mercedes-Benz E-Class', year:'2015 – 2020', price:'$1,800 / month', desc:'Elegant German engineering with a premium cabin. Ideal for business trips, airport transfers, and executive travel.', avail:'Available', tag:'Luxury Sedan', seat:'5 Seats' },
+            km: { title:'Mercedes-Benz', year:'2015 – 2020', price:'$1,800 / ខែ', desc:'ការរចនារថយន្តអាល្លឺម៉ង់ប្រណីត ល្អ​សម្រាប់ដំណើរការអាជីវកម្ម និងប្រតិបត្តិករ។', avail:'អាចជួល', tag:'ឡានប្រណីត', seat:'5 កៅអី' }
         }
     },
     alphard: {
         images: ['alphard 20 up 25/alphard 20 up 25 (01).jpg','alphard 20 up 25/alphard 20 up 25 (02).jpg','alphard 20 up 25/alphard 20 up 25 (03).jpg','alphard 20 up 25/alphard 20 up 25 (04).jpg','alphard 20 up 25/alphard 20 up 25 (05).jpg'],
-        specs: { seats:'7', trans:'AT', drive:'FF' },
+        specs: { seats:'7', trans:'AT', drive:'FF' }, category:'mpv',
         data: {
-            zh: { title:'丰田 埃尔法', year:'2020 – 2025', price:'$2,300 / 月', desc:'明星保姆车首选 — 宽敞VIP舱、豪华座椅、超平顺驾乘体验。商务接待与团队出行的最佳之选。' },
-            en: { title:'Toyota Alphard', year:'2020 – 2025', price:'$2,300 / month', desc:'The iconic VIP van — ultra-spacious cabin with captain seats and supreme refinement for VIP transport.' },
-            km: { title:'Toyota Alphard', year:'2020 – 2025', price:'$2,300 / ខែ', desc:'ឡាន VIP ដ៏ល្បី — ខ្នាតធំ កៅអីមេ ការជិះស្រួល ល្អបំផុតសម្រាប់ VIP និងការធ្វើដំណើរជាក្រុម។' }
+            zh: { title:'丰田 埃尔法', year:'2020 – 2025', price:'$2,300 / 月', desc:'明星保姆车首选 — 宽敞VIP舱、豪华座椅、超平顺驾乘体验。商务接待与团队出行的最佳之选。', avail:'可租赁', tag:'豪华MPV', seat:'7 座' },
+            en: { title:'Toyota Alphard', year:'2020 – 2025', price:'$2,300 / month', desc:'The iconic VIP van — ultra-spacious cabin with captain seats and supreme refinement for VIP transport.', avail:'Available', tag:'Premium MPV', seat:'7 Seats' },
+            km: { title:'Toyota Alphard', year:'2020 – 2025', price:'$2,300 / ខែ', desc:'ឡាន VIP ដ៏ល្បី — ខ្នាតធំ កៅអីមេ ការជិះ​ស្រួល ល្អ​បំផុត​សម្រាប់ VIP។', avail:'អាចជួល', tag:'MPV ប្រណីត', seat:'7 កៅអី' }
         }
     },
     bmw_x6: {
         images: ['bmw x6 2023/bmw x6 2023 (01).jpg','bmw x6 2023/bmw x6 2023 (02).jpg','bmw x6 2023/bmw x6 2023 (03).jpg','bmw x6 2023/bmw x6 2023 (04).jpg','bmw x6 2023/bmw x6 2023 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'xDrive' },
+        specs: { seats:'5', trans:'AT', drive:'xDrive' }, category:'suv',
         data: {
-            zh: { title:'宝马 X6', year:'2023', price:'$3,500 / 月', desc:'运动Coupe SUV造型，双涡轮增压动力，M运动套件，霸气路感。追求性能与尊贵的不二选择。' },
-            en: { title:'BMW X6', year:'2023', price:'$3,500 / month', desc:'Bold coupe-SUV design with twin-turbo power, M Sport styling and commanding road presence.' },
-            km: { title:'BMW X6', year:'2023', price:'$3,500 / ខែ', desc:'ការរចនា Coupe-SUV ជាមួយថាមពល twin-turbo ម៉ូតស្ទីល M Sport វត្តមានបញ្ចប់នៅលើផ្លូវ។' }
+            zh: { title:'宝马 X6', year:'2023', price:'$3,500 / 月', desc:'运动Coupe SUV造型，双涡轮增压动力，M运动套件，霸气路感。追求性能与尊贵的不二选择。', avail:'可租赁', tag:'运动SAV', seat:'5 座' },
+            en: { title:'BMW X6', year:'2023', price:'$3,500 / month', desc:'Bold coupe-SUV design with twin-turbo power, M Sport styling and commanding road presence.', avail:'Available', tag:'Sports SAV', seat:'5 Seats' },
+            km: { title:'BMW X6', year:'2023', price:'$3,500 / ខែ', desc:'Coupe-SUV ជាមួយ twin-turbo ម៉ូត M Sport ស្ទីល ។', avail:'អាចជួល', tag:'Sports SAV', seat:'5 កៅអី' }
         }
     },
     staria: {
         images: ['staria 2023/staria 2023 (01).jpg','staria 2023/staria 2023 (02).jpg','staria 2023/staria 2023 (03).jpg','staria 2023/staria 2023 (04).jpg','staria 2023/staria 2023 (05).jpg','staria 2023/staria 2023 (06).jpg'],
-        specs: { seats:'9', trans:'AT', drive:'FWD' },
+        specs: { seats:'9', trans:'AT', drive:'FWD' }, category:'mpv',
         data: {
-            zh: { title:'现代 斯塔利亚', year:'2023', price:'$1,600 / 月', desc:'未来感太空厢式造型，宽敞座位，全景天窗，舒适乘坐。家庭出游、员工接送的绝佳之选。' },
-            en: { title:'Hyundai Staria', year:'2023', price:'$1,600 / month', desc:'Futuristic space-van design with generous seating, panoramic roof and comfortable ride.' },
-            km: { title:'Hyundai Staria', year:'2023', price:'$1,600 / ខែ', desc:'ការរចនារថយន្តមានទំហំ ជាមួយកៅអីច្រើន ដំបូលបញ្ចាំង ល្អសម្រាប់ការធ្វើដំណើរជាក្រុម។' }
+            zh: { title:'现代 斯塔利亚', year:'2023', price:'$1,600 / 月', desc:'未来感太空厢式造型，宽敞座位，全景天窗，舒适乘坐。家庭出游、员工接送的绝佳之选。', avail:'可租赁', tag:'家庭MPV', seat:'9 座' },
+            en: { title:'Hyundai Staria', year:'2023', price:'$1,600 / month', desc:'Futuristic space-van design with generous seating, panoramic roof and comfortable ride.', avail:'Available', tag:'Family MPV', seat:'9 Seats' },
+            km: { title:'Hyundai Staria', year:'2023', price:'$1,600 / ខែ', desc:'ការ​រចនា​ Space-van ខ្នាត​ធំ ដំបូល​បញ្ចាំង ជិះ​ស្រួល ។', avail:'អាចជួល', tag:'MPV គ្រួសារ', seat:'9 កៅអី' }
         }
     },
     gac_gn8_vip: {
         images: ['gac gn8 vip 25/gac gn8 vip 25 (01).jpg','gac gn8 vip 25/gac gn8 vip 25 (02).jpg','gac gn8 vip 25/gac gn8 vip 25 (03).jpg','gac gn8 vip 25/gac gn8 vip 25 (04).jpg','gac gn8 vip 25/gac gn8 vip 25 (05).jpg'],
-        specs: { seats:'7', trans:'AT', drive:'FWD' },
+        specs: { seats:'7', trans:'AT', drive:'FWD' }, category:'mpv',
         data: {
-            zh: { title:'传祺 GN8 VIP', year:'2025', price:'$2,100 / 月', desc:'2025款传祺GN8 VIP版，顶级商务配置，超大空间，适合高端商务接待及VIP专属出行。' },
-            en: { title:'GAC GN8 VIP', year:'2025', price:'$2,100 / month', desc:'2025 GAC GN8 VIP edition with top business configuration, extra-large space for premium VIP travel.' },
-            km: { title:'GAC GN8 VIP', year:'2025', price:'$2,100 / ខែ', desc:'GAC GN8 VIP 2025 ជំនាន់ VIP ជាមួយការប្រមូលផ្តុំអាជីវកម្មកំពូល ល្អសម្រាប់ VIP ។' }
+            zh: { title:'传祺 GN8 VIP', year:'2025', price:'$2,100 / 月', desc:'2025款传祺GN8 VIP版，顶级商务配置，超大空间，适合高端商务接待及VIP专属出行。', avail:'可租赁', tag:'VIP MPV', seat:'7 座' },
+            en: { title:'GAC GN8 VIP', year:'2025', price:'$2,100 / month', desc:'2025 GAC GN8 VIP edition — top business config, extra-large cabin for premium VIP travel.', avail:'Available', tag:'VIP MPV', seat:'7 Seats' },
+            km: { title:'GAC GN8 VIP', year:'2025', price:'$2,100 / ខែ', desc:'GAC GN8 VIP 2025 ការប្រមូលផ្តុំ​អាជីវកម្ម​កំពូល ខ្នាត​ VIP ។', avail:'អាចជួល', tag:'VIP MPV', seat:'7 កៅអី' }
         }
     },
     lexus_570: {
         images: ['lexus 570 18/lexus 570 18 (01).jpg','lexus 570 18/lexus 570 18 (02).jpg','lexus 570 18/lexus 570 18 (03).jpg','lexus 570 18/lexus 570 18 (04).jpg','lexus 570 18/lexus 570 18 (05).jpg','lexus 570 18/lexus 570 18 (06).jpg'],
-        specs: { seats:'8', trans:'AT', drive:'4WD' },
+        specs: { seats:'8', trans:'AT', drive:'4WD' }, category:'suv',
         data: {
-            zh: { title:'雷克萨斯 LX570', year:'2018', price:'$2,700 / 月', desc:'雷克萨斯旗舰越野SUV，强悍越野性能结合顶级豪华内饰，适合越野探险与高端出行。' },
-            en: { title:'Lexus LX570', year:'2018', price:'$2,700 / month', desc:'Lexus flagship off-road SUV combining powerful capability with top luxury interior.' },
-            km: { title:'Lexus LX570', year:'2018', price:'$2,700 / ខែ', desc:'SUV ថ្នាក់ Flagship របស់ Lexus ការដំណើរការនៅក្រៅផ្លូវខ្លាំងបូកទំហំប្រណីតកំពូល។' }
+            zh: { title:'雷克萨斯 LX570', year:'2018', price:'$2,700 / 月', desc:'雷克萨斯旗舰越野SUV，强悍越野性能结合顶级豪华内饰，适合越野探险与高端出行。', avail:'可租赁', tag:'豪华SUV', seat:'8 座' },
+            en: { title:'Lexus LX570', year:'2018', price:'$2,700 / month', desc:'Lexus flagship off-road SUV combining powerful capability with top luxury interior.', avail:'Available', tag:'Luxury SUV', seat:'8 Seats' },
+            km: { title:'Lexus LX570', year:'2018', price:'$2,700 / ខែ', desc:'SUV Flagship Lexus ការ​ដំណើរ​ការ​ក្រៅ​ផ្លូវ​ខ្លាំង ខ្នាត​ប្រណីត​កំពូល ។', avail:'អាចជួល', tag:'Luxury SUV', seat:'8 កៅអី' }
         }
     },
     landcruiser: {
         images: ['land cruiser 12 up 23/land cruiser 12 up 23 (01).jpg','land cruiser 12 up 23/land cruiser 12 up 23 (02).jpg','land cruiser 12 up 23/land cruiser 12 up 23 (03).jpg','land cruiser 12 up 23/land cruiser 12 up 23 (04).jpg','land cruiser 12 up 23/land cruiser 12 up 23 (05).jpg','land cruiser 12 up 23/land cruiser 12 up 23 (06).jpg'],
-        specs: { seats:'8', trans:'AT', drive:'4WD' },
+        specs: { seats:'8', trans:'AT', drive:'4WD' }, category:'suv',
         data: {
-            zh: { title:'丰田 陆巡', year:'2012 – 2023', price:'$1,500 / 月', desc:'世界顶级越野王者，强悍四驱系统，可靠耐用，适合柬埔寨各种路况的商务及探险出行。' },
-            en: { title:'Toyota Land Cruiser', year:'2012 – 2023', price:'$1,500 / month', desc:'World-class off-road king with powerful 4WD, reliable and durable for all Cambodia terrains.' },
-            km: { title:'Toyota Land Cruiser', year:'2012 – 2023', price:'$1,500 / ខែ', desc:'ស្ដេចនៃការដំណើរការក្រៅផ្លូវ 4WD ខ្លាំង ត្រូវបានប្រើប្រាស់ជាអ្នកនៅក្នុងទ្រង់ Cambodia ទាំងអស់។' }
+            zh: { title:'丰田 陆巡', year:'2012 – 2023', price:'$1,500 / 月', desc:'世界顶级越野王者，强悍四驱系统，可靠耐用，适合柬埔寨各种路况的商务及探险出行。', avail:'可租赁', tag:'越野SUV', seat:'8 座' },
+            en: { title:'Toyota Land Cruiser', year:'2012 – 2023', price:'$1,500 / month', desc:'World-class off-road king with powerful 4WD, reliable for all Cambodia terrains.', avail:'Available', tag:'Off-road SUV', seat:'8 Seats' },
+            km: { title:'Toyota Land Cruiser', year:'2012 – 2023', price:'$1,500 / ខែ', desc:'ស្ដេច​នៃ​ការ​ដំណើរ​ក្រៅ​ផ្លូវ 4WD ខ្លាំង ត្រូវ​ប្រើ​ប្រាស់​ KH ។', avail:'អាចជួល', tag:'SUV ក្រៅ​ផ្លូវ', seat:'8 កៅអី' }
         }
     },
     raptor: {
         images: ['raptor f-150 16 up 20/raptor f-150 16 up 20 (01).jpg','raptor f-150 16 up 20/raptor f-150 16 up 20 (02).jpg','raptor f-150 16 up 20/raptor f-150 16 up 20 (03).jpg','raptor f-150 16 up 20/raptor f-150 16 up 20 (04).jpg','raptor f-150 16 up 20/raptor f-150 16 up 20 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'4WD' },
+        specs: { seats:'5', trans:'AT', drive:'4WD' }, category:'truck',
         data: {
-            zh: { title:'福特 猛禽 F-150', year:'2016 – 2020', price:'$1,500 / 月', desc:'传奇猛禽越野皮卡，高性能双涡轮发动机，专属越野悬架，霸气外观，适合各种地形探险。' },
-            en: { title:'Ford Raptor F-150', year:'2016 – 2020', price:'$1,500 / month', desc:'Legendary off-road pickup with high-performance twin-turbo engine and specialized off-road suspension.' },
-            km: { title:'Ford Raptor F-150', year:'2016 – 2020', price:'$1,500 / ខែ', desc:'ម៉ូតតំបន់ក្រៅផ្លូវ pickup ជាមួយម៉ាស៊ីន twin-turbo និង suspension ពិសេស។' }
+            zh: { title:'福特 猛禽 F-150', year:'2016 – 2020', price:'$1,500 / 月', desc:'传奇猛禽越野皮卡，高性能双涡轮发动机，专属越野悬架，霸气外观，适合各种地形探险。', avail:'可租赁', tag:'皮卡', seat:'5 座' },
+            en: { title:'Ford Raptor F-150', year:'2016 – 2020', price:'$1,500 / month', desc:'Legendary off-road pickup with high-performance twin-turbo engine and specialized off-road suspension.', avail:'Available', tag:'Pickup Truck', seat:'5 Seats' },
+            km: { title:'Ford Raptor F-150', year:'2016 – 2020', price:'$1,500 / ខែ', desc:'Pickup ក្រៅ​ផ្លូវ ដ៏​ល្បី ម៉ាស៊ីន twin-turbo ដំណើរ​ការ​ខ្ពស់ suspension ពិសេស ។', avail:'អាចជួល', tag:'Pickup', seat:'5 កៅអី' }
         }
     },
     mb_coupe: {
         images: ['mercedes benz coupe 23/mercedes benz coupe 23 (01).jpg','mercedes benz coupe 23/mercedes benz coupe 23 (02).jpg','mercedes benz coupe 23/mercedes benz coupe 23 (03).jpg','mercedes benz coupe 23/mercedes benz coupe 23 (04).jpg','mercedes benz coupe 23/mercedes benz coupe 23 (05).jpg','mercedes benz coupe 23/mercedes benz coupe 23 (06).jpg'],
-        specs: { seats:'4', trans:'AT', drive:'RWD' },
+        specs: { seats:'4', trans:'AT', drive:'RWD' }, category:'sedan',
         data: {
-            zh: { title:'奔驰 Coupe', year:'2023', price:'$1,700 / 月', desc:'2023款奔驰Coupe，流线型外观设计，高端运动性能与豪华品质完美融合，彰显个性品位。' },
-            en: { title:'Mercedes-Benz Coupe', year:'2023', price:'$1,700 / month', desc:'2023 Mercedes Coupe with sleek aerodynamic design, sporty performance and luxury quality.' },
-            km: { title:'Mercedes-Benz Coupe', year:'2023', price:'$1,700 / ខែ', desc:'Mercedes Coupe 2023 ការរចនាស្រស់ ការដំណើរការ sport ខ្ពស់ ជាមួយគុណភាព luxury ។' }
+            zh: { title:'奔驰 Coupe', year:'2023', price:'$1,700 / 月', desc:'2023款奔驰Coupe，流线型外观，高端运动性能与豪华品质完美融合，彰显个性品位。', avail:'可租赁', tag:'豪华Coupe', seat:'4 座' },
+            en: { title:'Mercedes-Benz Coupe', year:'2023', price:'$1,700 / month', desc:'2023 Mercedes Coupe — sleek design, sporty performance and luxury quality perfectly merged.', avail:'Available', tag:'Luxury Coupe', seat:'4 Seats' },
+            km: { title:'Mercedes-Benz Coupe', year:'2023', price:'$1,700 / ខែ', desc:'Mercedes Coupe 2023 ការ​រចនា​ស្រស់ ការ​ដំណើរ​ការ sport ខ្ពស់ ។', avail:'អាចជួល', tag:'Luxury Coupe', seat:'4 កៅអី' }
         }
     },
     rr_2023: {
         images: ['range rover 2023/range rover 2023 (01).jpg','range rover 2023/range rover 2023 (02).jpg','range rover 2023/range rover 2023 (03).jpg','range rover 2023/range rover 2023 (04).jpg','range rover 2023/range rover 2023 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'AWD' },
+        specs: { seats:'5', trans:'AT', drive:'AWD' }, category:'suv', badge:'VIP',
         data: {
-            zh: { title:'路虎 揽胜', year:'2023', price:'$9,000+ / 月 (询价)', desc:'2023款全新揽胜，英国皇室御用座驾，极致奢华内饰，出色越野能力，诠释真正的豪华SUV。' },
-            en: { title:'Range Rover', year:'2023', price:'$9,000+ / month (POA)', desc:'2023 new Range Rover, British royal SUV with ultimate luxury interior and excellent off-road capability.' },
-            km: { title:'Range Rover', year:'2023', price:'$9,000+ / ខែ (សួរតម្លៃ)', desc:'Range Rover 2023 ថ្មី SUV ម៉ូត British Royal ខ្នាតប្រណីតល្អ ការដំណើរការក្រៅផ្លូវខ្លាំង។' }
+            zh: { title:'路虎 揽胜', year:'2023', price:'$9,000+ / 月', desc:'2023全新揽胜，英国皇室御用座驾，极致奢华内饰，出色越野能力，诠释真正豪华SUV。', avail:'VIP', tag:'顶级SUV', seat:'5 座' },
+            en: { title:'Range Rover', year:'2023', price:'$9,000+ / month', desc:'2023 new Range Rover — British royal SUV with ultimate luxury interior and excellent off-road capability.', avail:'VIP', tag:'Premium SUV', seat:'5 Seats' },
+            km: { title:'Range Rover', year:'2023', price:'$9,000+ / ខែ', desc:'Range Rover 2023 ថ្មី SUV ម៉ូត British Royal ខ្នាត​ប្រណីត​ល្អ ។', avail:'VIP', tag:'SUV ថ្នាក់​ខ្ពស់', seat:'5 កៅអី' }
         }
     },
     lexus_lm: {
         images: ['lexus lm350h 2025/lexus lm350h 2025 (01).jpg','lexus lm350h 2025/lexus lm350h 2025 (02).jpg','lexus lm350h 2025/lexus lm350h 2025 (03).jpg','lexus lm350h 2025/lexus lm350h 2025 (04).jpg','lexus lm350h 2025/lexus lm350h 2025 (05).jpg'],
-        specs: { seats:'4', trans:'AT Hybrid', drive:'FWD' },
+        specs: { seats:'4', trans:'AT Hybrid', drive:'FWD' }, category:'mpv', badge:'顶级',
         data: {
-            zh: { title:'雷克萨斯 LM350h', year:'2025', price:'$8,000 / 月', desc:'2025款雷克萨斯LM350h，私人飞机般的乘坐体验，顶级隔音、超奢华后排，VIP商务出行终极之选。' },
-            en: { title:'Lexus LM350h', year:'2025', price:'$8,000 / month', desc:'2025 Lexus LM350h — private jet-level ride, top sound insulation and ultra-luxury rear cabin.' },
-            km: { title:'Lexus LM350h', year:'2025', price:'$8,000 / ខែ', desc:'Lexus LM350h 2025 ការជិះដូច private jet ការបន្ទោរទ្វារ sound កំពូល ខ្នាតក្រោយ ultra-luxury ។' }
+            zh: { title:'雷克萨斯 LM350h', year:'2025', price:'$8,000 / 月', desc:'2025款LM350h，私人飞机般乘坐体验，顶级隔音、超奢华后排，VIP商务出行终极之选。', avail:'顶级', tag:'豪华MPV', seat:'4 座' },
+            en: { title:'Lexus LM350h', year:'2025', price:'$8,000 / month', desc:'2025 Lexus LM350h — private jet-level ride, top sound insulation and ultra-luxury rear cabin.', avail:'Top', tag:'Luxury MPV', seat:'4 Seats' },
+            km: { title:'Lexus LM350h', year:'2025', price:'$8,000 / ខែ', desc:'Lexus LM350h 2025 ការ​ជិះ​ដូច private jet ការ​បន្ទោ​ទ្វារ​សំឡេង​កំពូល ។', avail:'ថ្នាក់​ខ្ពស់', tag:'MPV ប្រណីត', seat:'4 កៅអី' }
         }
     },
     porsche: {
         images: ['porches 911 15 up 18/porches 911 15 up 18 (01).jpg','porches 911 15 up 18/porches 911 15 up 18 (02).jpg','porches 911 15 up 18/porches 911 15 up 18 (03).jpg','porches 911 15 up 18/porches 911 15 up 18 (04).jpg','porches 911 15 up 18/porches 911 15 up 18 (05).jpg'],
-        specs: { seats:'2+2', trans:'PDK', drive:'RWD' },
+        specs: { seats:'2+2', trans:'PDK', drive:'RWD' }, category:'sports',
         data: {
-            zh: { title:'保时捷 911', year:'2015 – 2018', price:'$2,500 / 月', desc:'保时捷传奇跑车911，极致运驾乐趣，水平对置发动机，独特造型，体验真正的驾驶激情。' },
-            en: { title:'Porsche 911', year:'2015 – 2018', price:'$2,500 / month', desc:'The legendary Porsche 911 sports car with ultimate driving pleasure and iconic flat-six engine.' },
-            km: { title:'Porsche 911', year:'2015 – 2018', price:'$2,500 / ខែ', desc:'រថយន្ត sport ល្បី Porsche 911 ការជិះដ៏ល្អ ម៉ាស៊ីន flat-six ល្បី ការជំរុញពិតប្រាកដ។' }
+            zh: { title:'保时捷 911', year:'2015 – 2018', price:'$2,500 / 月', desc:'保时捷传奇跑车911，极致运驾乐趣，水平对置发动机，独特造型，体验真正的驾驶激情。', avail:'可租赁', tag:'跑车', seat:'2+2 座' },
+            en: { title:'Porsche 911', year:'2015 – 2018', price:'$2,500 / month', desc:'Legendary Porsche 911 with ultimate driving pleasure and iconic flat-six engine.', avail:'Available', tag:'Sports Car', seat:'2+2 Seats' },
+            km: { title:'Porsche 911', year:'2015 – 2018', price:'$2,500 / ខែ', desc:'Porsche 911 ការ​ជំរុញ​ដ៏​ល្អ ម៉ាស៊ីន flat-six ល្បី ។', avail:'អាចជួល', tag:'ឡាន​ប្រណាំង', seat:'2+2 កៅអី' }
         }
     },
     lexus_nx: {
         images: ['lexus nx200t 2017/lexus nx200t 2017 (01).jpg','lexus nx200t 2017/lexus nx200t 2017 (02).jpg','lexus nx200t 2017/lexus nx200t 2017 (03).jpg','lexus nx200t 2017/lexus nx200t 2017 (04).jpg','lexus nx200t 2017/lexus nx200t 2017 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'FWD' },
+        specs: { seats:'5', trans:'AT', drive:'FWD' }, category:'suv',
         data: {
-            zh: { title:'雷克萨斯 NX200t', year:'2017', price:'$1,000 / 月', desc:'雷克萨斯NX200t，时尚动感造型，涡轮增压引擎，雷克萨斯品质保证，性价比极高的豪华之选。' },
-            en: { title:'Lexus NX200t', year:'2017', price:'$1,000 / month', desc:'Lexus NX200t with stylish sporty design, turbocharged engine and Lexus quality guarantee.' },
-            km: { title:'Lexus NX200t', year:'2017', price:'$1,000 / ខែ', desc:'Lexus NX200t ការរចនា sport ស្អាត ម៉ាស៊ីន turbo ការធានាគុណភាព Lexus ។' }
+            zh: { title:'雷克萨斯 NX200t', year:'2017', price:'$1,000 / 月', desc:'雷克萨斯NX200t，时尚动感造型，涡轮增压引擎，性价比极高的豪华之选。', avail:'可租赁', tag:'豪华SUV', seat:'5 座' },
+            en: { title:'Lexus NX200t', year:'2017', price:'$1,000 / month', desc:'Lexus NX200t with stylish sporty design and turbocharged engine — great value luxury.', avail:'Available', tag:'Luxury SUV', seat:'5 Seats' },
+            km: { title:'Lexus NX200t', year:'2017', price:'$1,000 / ខែ', desc:'Lexus NX200t ការ​រចនា sport ស្អាត ម៉ាស៊ីន turbo ។', avail:'អាចជួល', tag:'Luxury SUV', seat:'5 កៅអី' }
         }
     },
     bmw_740i: {
         images: ['bmw 740I 16 up 20/bmw 740I 16 up 20 (01).jpg','bmw 740I 16 up 20/bmw 740I 16 up 20 (02).jpg','bmw 740I 16 up 20/bmw 740I 16 up 20 (03).jpg','bmw 740I 16 up 20/bmw 740I 16 up 20 (04).jpg','bmw 740I 16 up 20/bmw 740I 16 up 20 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'RWD' },
+        specs: { seats:'5', trans:'AT', drive:'RWD' }, category:'sedan',
         data: {
-            zh: { title:'宝马 740i', year:'2016 – 2020', price:'$2,500 / 月', desc:'宝马7系旗舰行政轿车，极致舒适与驾驶乐趣兼备，顶级内饰配置，商务出行的最佳座驾。' },
-            en: { title:'BMW 740i', year:'2016 – 2020', price:'$2,500 / month', desc:'BMW 7 Series flagship executive sedan with ultimate comfort and driving pleasure.' },
-            km: { title:'BMW 740i', year:'2016 – 2020', price:'$2,500 / ខែ', desc:'BMW 7 Series flagship executive sedan ជាមួយការស្រួលល្អ ការជំរុញ ។' }
+            zh: { title:'宝马 740i', year:'2016 – 2020', price:'$2,500 / 月', desc:'宝马7系旗舰行政轿车，极致舒适与驾驶乐趣兼备，顶级内饰配置，商务出行最佳座驾。', avail:'可租赁', tag:'行政豪华轿车', seat:'5 座' },
+            en: { title:'BMW 740i', year:'2016 – 2020', price:'$2,500 / month', desc:'BMW 7 Series flagship executive sedan with ultimate comfort and driving pleasure.', avail:'Available', tag:'Executive Sedan', seat:'5 Seats' },
+            km: { title:'BMW 740i', year:'2016 – 2020', price:'$2,500 / ខែ', desc:'BMW 7 Series flagship executive sedan ជាមួយ​ការ​ស្រួល​ ។', avail:'អាចជួល', tag:'Executive Sedan', seat:'5 កៅអី' }
         }
     },
     gac_gn8: {
         images: ['gac gn8 24/gac gn8 24 (01).jpg','gac gn8 24/gac gn8 24 (02).jpg','gac gn8 24/gac gn8 24 (03).jpg','gac gn8 24/gac gn8 24 (04).jpg','gac gn8 24/gac gn8 24 (05).jpg'],
-        specs: { seats:'7', trans:'AT', drive:'FWD' },
+        specs: { seats:'7', trans:'AT', drive:'FWD' }, category:'mpv',
         data: {
-            zh: { title:'传祺 GN8', year:'2024', price:'$1,800 / 月', desc:'2024款传祺GN8，全新升级商务配置，宽敞舒适的7座空间，适合家庭及商务用车。' },
-            en: { title:'GAC GN8', year:'2024', price:'$1,800 / month', desc:'2024 GAC GN8 with upgraded business configuration and spacious 7-seat comfort for family or business.' },
-            km: { title:'GAC GN8', year:'2024', price:'$1,800 / ខែ', desc:'GAC GN8 2024 ការកំណត់អាជីវកម្មធ្វើឱ្យប្រសើរ ខ្នាត 7 កៅអី ស្រួល ។' }
+            zh: { title:'传祺 GN8', year:'2024', price:'$1,800 / 月', desc:'2024款传祺GN8，全新升级商务配置，宽敞舒适7座空间，适合家庭及商务用车。', avail:'可租赁', tag:'豪华MPV', seat:'7 座' },
+            en: { title:'GAC GN8', year:'2024', price:'$1,800 / month', desc:'2024 GAC GN8 with upgraded business config and spacious 7-seat comfort.', avail:'Available', tag:'Luxury MPV', seat:'7 Seats' },
+            km: { title:'GAC GN8', year:'2024', price:'$1,800 / ខែ', desc:'GAC GN8 2024 ការ​កំណត់​អាជីវកម្ម​ធ្វើ​ឱ្យ​ប្រសើរ ខ្នាត 7 កៅអី ។', avail:'អាចជួល', tag:'MPV ប្រណីត', seat:'7 កៅអី' }
         }
     },
     bmw_m4: {
         images: ['bmw m4 15/bmw m4 15 (01).jpg','bmw m4 15/bmw m4 15 (02).jpg','bmw m4 15/bmw m4 15 (03).jpg','bmw m4 15/bmw m4 15 (04).jpg','bmw m4 15/bmw m4 15 (05).jpg'],
-        specs: { seats:'4', trans:'DCT', drive:'RWD' },
+        specs: { seats:'4', trans:'DCT', drive:'RWD' }, category:'sports',
         data: {
-            zh: { title:'宝马 M4', year:'2015', price:'$2,100 / 月', desc:'宝马M4高性能跑车，3.0T双涡轮直列六缸引擎，M专属运动调校，纯粹赛道基因，激情驾驶体验。' },
-            en: { title:'BMW M4', year:'2015', price:'$2,100 / month', desc:'BMW M4 performance coupe with 3.0T twin-turbo inline-six, M-tuned suspension and pure track DNA.' },
-            km: { title:'BMW M4', year:'2015', price:'$2,100 / ខែ', desc:'BMW M4 coupe ដំណើរការខ្ពស់ 3.0T twin-turbo ការតម្រូវ M ព្រោះ DNA ស្ថានីយ។' }
+            zh: { title:'宝马 M4', year:'2015', price:'$2,100 / 月', desc:'宝马M4高性能跑车，3.0T双涡轮直列六缸引擎，M专属运动调校，纯粹赛道基因，激情驾驶体验。', avail:'可租赁', tag:'运动跑车', seat:'4 座' },
+            en: { title:'BMW M4', year:'2015', price:'$2,100 / month', desc:'BMW M4 performance coupe with 3.0T twin-turbo inline-six and M-tuned pure track DNA.', avail:'Available', tag:'Sports Coupe', seat:'4 Seats' },
+            km: { title:'BMW M4', year:'2015', price:'$2,100 / ខែ', desc:'BMW M4 coupe ដំណើរ​ការ​ខ្ពស់ 3.0T twin-turbo ការ​តម្រូវ M ។', avail:'អាចជួល', tag:'Sports Coupe', seat:'4 កៅអី' }
         }
     },
     g63: {
         images: ['mercedes g63 21/mercedes g63 21 (01).jpg','mercedes g63 21/mercedes g63 21 (02).jpg','mercedes g63 21/mercedes g63 21 (03).jpg','mercedes g63 21/mercedes g63 21 (04).jpg','mercedes g63 21/mercedes g63 21 (05).jpg','mercedes g63 21/mercedes g63 21 (06).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'4WD' },
+        specs: { seats:'5', trans:'AT', drive:'4WD' }, category:'suv', badge:'顶级',
         data: {
-            zh: { title:'奔驰 G63 AMG', year:'2021', price:'$11,000 / 月', desc:'奔驰G63 AMG，G级传奇方盒子造型，4.0T V8双涡轮引擎，577马力，展示极致霸气与奢华。' },
-            en: { title:'Mercedes G63 AMG', year:'2021', price:'$11,000 / month', desc:'Mercedes G63 AMG with iconic boxy G-Class shape, 4.0T V8 twin-turbo, 577 hp of raw power.' },
-            km: { title:'Mercedes G63 AMG', year:'2021', price:'$11,000 / ខែ', desc:'Mercedes G63 AMG ការរចនា G-Class ល្បី 4.0T V8 twin-turbo 577 HP ។' }
+            zh: { title:'奔驰 G63 AMG', year:'2021', price:'$11,000 / 月', desc:'奔驰G63 AMG，G级传奇方盒子造型，4.0T V8双涡轮引擎，577马力，极致霸气与奢华。', avail:'顶级', tag:'AMG SUV', seat:'5 座' },
+            en: { title:'Mercedes G63 AMG', year:'2021', price:'$11,000 / month', desc:'Mercedes G63 AMG with iconic boxy G-Class, 4.0T V8 twin-turbo, 577 hp of raw power.', avail:'Top', tag:'AMG SUV', seat:'5 Seats' },
+            km: { title:'Mercedes G63 AMG', year:'2021', price:'$11,000 / ខែ', desc:'Mercedes G63 AMG G-Class ល្បី 4.0T V8 twin-turbo 577 HP ។', avail:'ថ្នាក់​ខ្ពស់', tag:'AMG SUV', seat:'5 កៅអី' }
         }
     },
     gls600: {
         images: ['mercedes gls600 15 up 23/mercedes gls600 15 up 23 (01).jpg','mercedes gls600 15 up 23/mercedes gls600 15 up 23 (02).jpg','mercedes gls600 15 up 23/mercedes gls600 15 up 23 (03).jpg','mercedes gls600 15 up 23/mercedes gls600 15 up 23 (04).jpg','mercedes gls600 15 up 23/mercedes gls600 15 up 23 (05).jpg','mercedes gls600 15 up 23/mercedes gls600 15 up 23 (06).jpg'],
-        specs: { seats:'7', trans:'AT', drive:'4WD' },
+        specs: { seats:'7', trans:'AT', drive:'4WD' }, category:'suv',
         data: {
-            zh: { title:'奔驰 GLS600', year:'2015 – 2023', price:'$2,700 / 月', desc:'奔驰GLS旗舰SUV，三排7座豪华空间，顶级配置与舒适性，堪称SUV中的S级奢华体验。' },
-            en: { title:'Mercedes GLS600', year:'2015 – 2023', price:'$2,700 / month', desc:'Mercedes GLS flagship SUV with 7-seat luxury 3-row space — the S-Class of SUVs.' },
-            km: { title:'Mercedes GLS600', year:'2015 – 2023', price:'$2,700 / ខែ', desc:'Mercedes GLS flagship SUV ខ្នាត 7 កៅអី 3 ជួរ ការស្រួល S-Class ក្នុង SUV ។' }
+            zh: { title:'奔驰 GLS600', year:'2015 – 2023', price:'$2,700 / 月', desc:'奔驰GLS旗舰SUV，三排7座豪华空间，顶级配置，堪称SUV中的S级奢华体验。', avail:'可租赁', tag:'旗舰SUV', seat:'7 座' },
+            en: { title:'Mercedes GLS600', year:'2015 – 2023', price:'$2,700 / month', desc:'Mercedes GLS flagship SUV with 7-seat luxury 3-row space — the S-Class of SUVs.', avail:'Available', tag:'Flagship SUV', seat:'7 Seats' },
+            km: { title:'Mercedes GLS600', year:'2015 – 2023', price:'$2,700 / ខែ', desc:'Mercedes GLS flagship SUV ខ្នាត 7 កៅអី 3 ជួរ ។', avail:'អាចជួល', tag:'Flagship SUV', seat:'7 កៅអី' }
         }
     },
     cadillac: {
         images: ['caddilac 22/caddilac 22 (01).jpg','caddilac 22/caddilac 22 (02).jpg','caddilac 22/caddilac 22 (03).jpg','caddilac 22/caddilac 22 (04).jpg','caddilac 22/caddilac 22 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'AWD' },
+        specs: { seats:'5', trans:'AT', drive:'AWD' }, category:'suv',
         data: {
-            zh: { title:'凯迪拉克', year:'2022', price:'$5,500 / 月', desc:'美国豪华品牌凯迪拉克2022款，大气豪华外观，舒适高端内饰，展现美式豪华驾乘风格。' },
-            en: { title:'Cadillac', year:'2022', price:'$5,500 / month', desc:'2022 Cadillac American luxury brand with bold grand exterior and premium interior styling.' },
-            km: { title:'Cadillac', year:'2022', price:'$5,500 / ខែ', desc:'Cadillac 2022 ម៉ូតអាមេរិក luxury ខ្នាតធំ ខ្នាតប្រណីតខ្ពស់។' }
+            zh: { title:'凯迪拉克', year:'2022', price:'$5,500 / 月', desc:'美国豪华品牌凯迪拉克2022款，大气豪华外观，舒适高端内饰，展现美式豪华驾乘风格。', avail:'可租赁', tag:'美系豪华', seat:'5 座' },
+            en: { title:'Cadillac', year:'2022', price:'$5,500 / month', desc:'2022 Cadillac American luxury with bold grand exterior and premium interior styling.', avail:'Available', tag:'American Luxury', seat:'5 Seats' },
+            km: { title:'Cadillac', year:'2022', price:'$5,500 / ខែ', desc:'Cadillac 2022 ម៉ូត​អាមេរិក luxury ខ្នាត​ធំ ។', avail:'អាចជួល', tag:'American Luxury', seat:'5 កៅអី' }
         }
     },
     rr_old: {
         images: ['range rover 14 up 23/range rover 14 up 23 (01).jpg','range rover 14 up 23/range rover 14 up 23 (02).jpg','range rover 14 up 23/range rover 14 up 23 (03).jpg','range rover 14 up 23/range rover 14 up 23 (04).jpg','range rover 14 up 23/range rover 14 up 23 (05).jpg','range rover 14 up 23/range rover 14 up 23 (06).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'AWD' },
+        specs: { seats:'5', trans:'AT', drive:'AWD' }, category:'suv',
         data: {
-            zh: { title:'路虎 揽胜', year:'2014 – 2023', price:'$2,000 / 月', desc:'路虎揽胜经典款，英国贵族血统，豪华舒适内饰，强大四驱系统，城市与越野均游刃有余。' },
-            en: { title:'Range Rover', year:'2014 – 2023', price:'$2,000 / month', desc:'Classic Range Rover with British aristocratic heritage, luxurious interior and powerful AWD.' },
-            km: { title:'Range Rover', year:'2014 – 2023', price:'$2,000 / ខែ', desc:'Range Rover classic ជាតិ British aristocratic ខ្នាតប្រណីត AWD ខ្លាំង។' }
+            zh: { title:'路虎 揽胜', year:'2014 – 2023', price:'$2,000 / 月', desc:'路虎揽胜经典款，英国贵族血统，豪华舒适内饰，强大四驱系统，城市与越野均游刃有余。', avail:'可租赁', tag:'豪华SUV', seat:'5 座' },
+            en: { title:'Range Rover', year:'2014 – 2023', price:'$2,000 / month', desc:'Classic Range Rover with British aristocratic heritage, luxurious interior and powerful AWD.', avail:'Available', tag:'Luxury SUV', seat:'5 Seats' },
+            km: { title:'Range Rover', year:'2014 – 2023', price:'$2,000 / ខែ', desc:'Range Rover classic ជាតិ British aristocratic ខ្នាត​ប្រណីត AWD ខ្លាំង ។', avail:'អាចជួល', tag:'Luxury SUV', seat:'5 កៅអី' }
         }
     },
     c300: {
         images: ['mercedes c300/mercedes c300 (01).jpg','mercedes c300/mercedes c300 (02).jpg','mercedes c300/mercedes c300 (03).jpg','mercedes c300/mercedes c300 (04).jpg','mercedes c300/mercedes c300 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'RWD' },
+        specs: { seats:'5', trans:'AT', drive:'RWD' }, category:'sedan',
         data: {
-            zh: { title:'奔驰 C300', year:'2015', price:'$1,200 / 月', desc:'奔驰C300，精致运动与豪华完美结合，时尚外观与高品质内饰，适合日常商务及私人出行。' },
-            en: { title:'Mercedes C300', year:'POA', price:'$1,200 / month', desc:'Mercedes C300, perfect blend of sporty elegance and luxury with stylish design and premium interior.' },
-            km: { title:'Mercedes C300', year:'សួរតម្លៃ', price:'$1,200 / ខែ', desc:'Mercedes C300 ការបញ្ចូលគ្នា sporty ប្រណីត ការរចនា ស្អាតជាមួយខ្នាត premium ។' }
+            zh: { title:'奔驰 C300', year:'2015', price:'$1,200 / 月', desc:'奔驰C300，精致运动与豪华完美结合，时尚外观，适合日常商务及私人出行。', avail:'可租赁', tag:'豪华轿车', seat:'5 座' },
+            en: { title:'Mercedes C300', year:'2015', price:'$1,200 / month', desc:'Mercedes C300 — perfect blend of sporty elegance and luxury for business or private trips.', avail:'Available', tag:'Luxury Sedan', seat:'5 Seats' },
+            km: { title:'Mercedes C300', year:'2015', price:'$1,200 / ខែ', desc:'Mercedes C300 ការ​បញ្ចូល​គ្នា sporty ប្រណីត ។', avail:'អាចជួល', tag:'ឡាន​ប្រណីត', seat:'5 កៅអី' }
         }
     },
     jeep: {
         images: ['jeep 20/jeep 20 (01).jpg','jeep 20/jeep 20 (02).jpg','jeep 20/jeep 20 (03).jpg','jeep 20/jeep 20 (04).jpg','jeep 20/jeep 20 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'4WD' },
+        specs: { seats:'5', trans:'AT', drive:'4WD' }, category:'suv',
         data: {
-            zh: { title:'Jeep', year:'2020', price:'$2,000 / 月', desc:'Jeep越野SUV，专业越野基因，强悍四驱系统，适合柬埔寨各类地形，探险出行的可靠选择。' },
-            en: { title:'Jeep', year:'2020', price:'$2,000/ month', desc:'Jeep off-road SUV with professional off-road DNA, powerful 4WD system for all Cambodia terrains.' },
-            km: { title:'Jeep', year:'2020', price:'$2,000 / ខែ', desc:'Jeep SUV ក្រៅផ្លូវ DNA ក្រៅផ្លូវ professional 4WD ខ្លាំង ។' }
+            zh: { title:'Jeep', year:'2020', price:'$2,000 / 月', desc:'Jeep越野SUV，专业越野基因，强悍四驱系统，适合柬埔寨各类地形探险出行。', avail:'可租赁', tag:'越野SUV', seat:'5 座' },
+            en: { title:'Jeep', year:'2020', price:'$2,000 / month', desc:'Jeep off-road SUV with professional off-road DNA and powerful 4WD for all Cambodia terrains.', avail:'Available', tag:'Off-road SUV', seat:'5 Seats' },
+            km: { title:'Jeep', year:'2020', price:'$2,000 / ខែ', desc:'Jeep SUV ក្រៅ​ផ្លូវ DNA ក្រៅ​ផ្លូវ professional 4WD ខ្លាំង ។', avail:'អាចជួល', tag:'SUV ក្រៅ​ផ្លូវ', seat:'5 កៅអី' }
         }
     },
     audi_q8: {
         images: ['audi q8 19/audi q8 19 (01).jpg','audi q8 19/audi q8 19 (02).jpg','audi q8 19/audi q8 19 (03).jpg','audi q8 19/audi q8 19 (04).jpg','audi q8 19/audi q8 19 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'quattro AWD' },
+        specs: { seats:'5', trans:'AT', drive:'quattro AWD' }, category:'suv',
         data: {
-            zh: { title:'奥迪 Q8', year:'2019', price:'$2,500 / 月', desc:'奥迪Q8旗舰SUV，动感Coupe造型，4.0T V8双涡轮，quattro四驱，极致豪华运动体验。' },
-            en: { title:'Audi Q8', year:'2019', price:'$2,500 / month', desc:'Audi Q8 flagship SUV with sporty coupe design, 4.0T V8 twin-turbo, quattro AWD for ultimate performance.' },
-            km: { title:'Audi Q8', year:'2019', price:'$2,500 / ខែ', desc:'Audi Q8 SUV Flagship ការរចនា Coupe ស្ទីល 4.0T V8 twin-turbo quattro AWD ជំរុញ ។' }
+            zh: { title:'奥迪 Q8', year:'2019', price:'$2,500 / 月', desc:'奥迪Q8旗舰SUV，动感Coupe造型，4.0T V8双涡轮，quattro四驱，极致豪华运动体验。', avail:'可租赁', tag:'豪华SUV', seat:'5 座' },
+            en: { title:'Audi Q8', year:'2019', price:'$2,500 / month', desc:'Audi Q8 flagship SUV with sporty coupe design and 4.0T V8 quattro AWD.', avail:'Available', tag:'Luxury SUV', seat:'5 Seats' },
+            km: { title:'Audi Q8', year:'2019', price:'$2,500 / ខែ', desc:'Audi Q8 SUV Flagship Coupe ស្ទីល 4.0T V8 quattro AWD ។', avail:'អាចជួល', tag:'Luxury SUV', seat:'5 កៅអី' }
         }
     },
     mazda_bt50: {
         images: ['mazda bt50 21/mazda bt50 21 (01).jpg','mazda bt50 21/mazda bt50 21 (02).jpg','mazda bt50 21/mazda bt50 21 (03).jpg','mazda bt50 21/mazda bt50 21 (04).jpg','mazda bt50 21/mazda bt50 21 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'4WD' },
+        specs: { seats:'5', trans:'AT', drive:'4WD' }, category:'truck',
         data: {
-            zh: { title:'马自达 BT50', year:'2021', price:'$800 / 月', desc:'2021款马自达BT50皮卡，可靠耐用，多功能实用，适合工作与户外探险两用。' },
-            en: { title:'Mazda BT-50', year:'2021', price:'$800 / month', desc:'2021 Mazda BT-50 pickup, reliable and durable, multi-purpose for work and outdoor adventures.' },
-            km: { title:'Mazda BT-50', year:'2021', price:'$800 / ខែ', desc:'Mazda BT-50 2021 pickup ងាយប្រើ ប្រើប្រាស់ ch្រើននៅការងារ និង outdoor ។' }
+            zh: { title:'马自达 BT50', year:'2021', price:'$800 / 月', desc:'2021款马自达BT50皮卡，可靠耐用，多功能实用，适合工作与户外探险两用。', avail:'可租赁', tag:'皮卡', seat:'5 座' },
+            en: { title:'Mazda BT-50', year:'2021', price:'$800 / month', desc:'2021 Mazda BT-50 pickup — reliable, durable and multi-purpose for work and outdoor.', avail:'Available', tag:'Pickup Truck', seat:'5 Seats' },
+            km: { title:'Mazda BT-50', year:'2021', price:'$800 / ខែ', desc:'Mazda BT-50 2021 pickup ដំណើរ​ការ​ល្អ ប្រើ​ប្រាស់​ការ​ងារ outdoor ។', avail:'អាចជួល', tag:'Pickup', seat:'5 កៅអី' }
         }
     },
     alphard_lm300h: {
         images: ['Alphard up lm300h 15/Alphard up lm300h 15 (01).jpg','Alphard up lm300h 15/Alphard up lm300h 15 (02).jpg','Alphard up lm300h 15/Alphard up lm300h 15 (03).jpg','Alphard up lm300h 15/Alphard up lm300h 15 (04).jpg','Alphard up lm300h 15/Alphard up lm300h 15 (05).jpg'],
-        specs: { seats:'4', trans:'Hybrid', drive:'FF' },
+        specs: { seats:'4', trans:'Hybrid', drive:'FF' }, category:'mpv', badge:'升级改装',
         data: {
-            zh: { title:'埃尔法 → 雷克萨斯 LM300h', year:'2015 → 2021', price:'$1,500 / 月', desc:'Toyota Alphard 2015 升级改装为 Lexus LM300h 2021外观，高端VIP座舱，升级体验。' },
-            en: { title:'Alphard → Lexus LM300h', year:'2015 → 2021', price:'$1,500 / month', desc:'Toyota Alphard 2015 upgraded to Lexus LM300h 2021 exterior, high-end VIP cabin, elevated experience.' },
-            km: { title:'Alphard → Lexus LM300h', year:'2015 → 2021', price:'$1,500 / ខែ', desc:'Toyota Alphard 2015 ដំឡើងខ្នាតក្រៅ Lexus LM300h 2021 ខ្នាត VIP ថ្នាក់ខ្ពស់ ។' }
+            zh: { title:'埃尔法 → LM300h', year:'2015 → 2021', price:'$1,500 / 月', desc:'Toyota Alphard 2015 升级改装为 Lexus LM300h 2021外观，高端VIP座舱，升级体验。', avail:'升级改装', tag:'VIP MPV', seat:'4 座' },
+            en: { title:'Alphard → LM300h', year:'2015 → 2021', price:'$1,500 / month', desc:'Toyota Alphard 2015 upgraded to Lexus LM300h 2021 exterior and high-end VIP cabin.', avail:'Upgraded', tag:'VIP MPV', seat:'4 Seats' },
+            km: { title:'Alphard → LM300h', year:'2015 → 2021', price:'$1,500 / ខែ', desc:'Toyota Alphard 2015 ដំឡើង​ខ្នាត​ក្រៅ Lexus LM300h 2021 ខ្នាត VIP ។', avail:'ដំឡើង', tag:'VIP MPV', seat:'4 កៅអី' }
         }
     },
     lexus_ct200h: {
         images: ['lexus ct200h 12/lexus ct200h 12 (01).jpg','lexus ct200h 12/lexus ct200h 12 (02).jpg','lexus ct200h 12/lexus ct200h 12 (03).jpg','lexus ct200h 12/lexus ct200h 12 (04).jpg'],
-        specs: { seats:'5', trans:'Hybrid', drive:'FWD' },
+        specs: { seats:'5', trans:'Hybrid', drive:'FWD' }, category:'sedan',
         data: {
-            zh: { title:'雷克萨斯 CT200h', year:'2012', price:'$600 / 月', desc:'雷克萨斯CT200h混合动力轿车，省油环保，雷克萨斯品质内饰，舒适日常出行首选。' },
-            en: { title:'Lexus CT200h', year:'2012', price:'$600 / month', desc:'Lexus CT200h hybrid, fuel-efficient and eco-friendly with Lexus premium cabin for comfortable daily commuting.' },
-            km: { title:'Lexus CT200h', year:'2012', price:'$600 / ខែ', desc:'Lexus CT200h hybrid សន្សំប្រេង eco ខ្នាត Lexus premium ជំនួសសម្រាប់ប្រចាំថ្ងៃ ។' }
+            zh: { title:'雷克萨斯 CT200h', year:'2012', price:'$600 / 月', desc:'雷克萨斯CT200h混合动力轿车，省油环保，Lexus品质内饰，舒适日常出行首选。', avail:'可租赁', tag:'豪华混动', seat:'5 座' },
+            en: { title:'Lexus CT200h', year:'2012', price:'$600 / month', desc:'Lexus CT200h hybrid — fuel-efficient, eco-friendly with Lexus premium cabin.', avail:'Available', tag:'Luxury Hybrid', seat:'5 Seats' },
+            km: { title:'Lexus CT200h', year:'2012', price:'$600 / ខែ', desc:'Lexus CT200h hybrid សន្សំ​ប្រេង eco ខ្នាត Lexus premium ។', avail:'អាចជួល', tag:'Hybrid', seat:'5 កៅអី' }
         }
     },
     prius: {
         images: ['toyota prius 10/toyota prius 10 (01).jpg','toyota prius 10/toyota prius 10 (02).jpg','toyota prius 10/toyota prius 10 (03).jpg','toyota prius 10/toyota prius 10 (04).jpg'],
-        specs: { seats:'5', trans:'Hybrid', drive:'FWD' },
+        specs: { seats:'5', trans:'Hybrid', drive:'FWD' }, category:'sedan',
         data: {
-            zh: { title:'丰田 普锐斯', year:'2010', price:'$550 / 月', desc:'丰田普锐斯混合动力，超低油耗，环保出行，经济实惠，城市通勤的绝佳选择。' },
-            en: { title:'Toyota Prius', year:'2010', price:'$550 / month', desc:'Toyota Prius hybrid with ultra-low fuel consumption, eco-friendly and economical for city commuting.' },
-            km: { title:'Toyota Prius', year:'2010', price:'$550 / ខែ', desc:'Toyota Prius hybrid ប្រើប្រេងតិច eco ក្រ សន្សំប្រាក់ ល្អ commute ក្នុងក្រុង ។' }
+            zh: { title:'丰田 普锐斯', year:'2010', price:'$550 / 月', desc:'丰田普锐斯混合动力，超低油耗，环保出行，经济实惠，城市通勤的绝佳选择。', avail:'可租赁', tag:'混动轿车', seat:'5 座' },
+            en: { title:'Toyota Prius', year:'2010', price:'$550 / month', desc:'Toyota Prius hybrid — ultra-low fuel consumption, eco-friendly and economical for city commuting.', avail:'Available', tag:'Hybrid Sedan', seat:'5 Seats' },
+            km: { title:'Toyota Prius', year:'2010', price:'$550 / ខែ', desc:'Toyota Prius hybrid ប្រើ​ប្រេង​តិច eco ។', avail:'អាចជួល', tag:'Hybrid', seat:'5 កៅអី' }
         }
     },
     ford_xl: {
         images: ['ford xl 26/ford xl 26 (01).jpg','ford xl 26/ford xl 26 (02).jpg','ford xl 26/ford xl 26 (03).jpg','ford xl 26/ford xl 26 (04).jpg','ford xl 26/ford xl 26 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'4WD' },
+        specs: { seats:'5', trans:'AT', drive:'4WD' }, category:'truck',
         data: {
-            zh: { title:'福特 XL', year:'2026', price:'$1,300 / 月', desc:'2026款福特XL皮卡，强劲实用，宽大载货空间，适合工程作业与越野出行。' },
-            en: { title:'Ford XL', year:'2026', price:'$1,300 / month', desc:'2026 Ford XL pickup, powerful and practical with large cargo space for engineering and off-road use.' },
-            km: { title:'Ford XL', year:'2026', price:'$1,300 / ខែ', desc:'Ford XL 2026 pickup ខ្លាំង ប្រើប្រាស់ ចន្លោះដឹកជញ្ជូន ខ្ពស់ ល្អ engineering ក្រៅផ្លូវ ។' }
+            zh: { title:'福特 XL', year:'2026', price:'$1,300 / 月', desc:'2026款福特XL皮卡，强劲实用，宽大载货空间，适合工程作业与越野出行。', avail:'可租赁', tag:'皮卡', seat:'5 座' },
+            en: { title:'Ford XL', year:'2026', price:'$1,300 / month', desc:'2026 Ford XL pickup — powerful and practical with large cargo space for engineering and off-road.', avail:'Available', tag:'Pickup Truck', seat:'5 Seats' },
+            km: { title:'Ford XL', year:'2026', price:'$1,300 / ខែ', desc:'Ford XL 2026 pickup ខ្លាំង ប្រើ​ប្រាស់​ ។', avail:'អាចជួល', tag:'Pickup', seat:'5 កៅអី' }
         }
     },
     audi_a7_rs7: {
         images: ['audi a7 up rs7 12/audi a7 up rs7 12 (01).jpg','audi a7 up rs7 12/audi a7 up rs7 12 (02).jpg','audi a7 up rs7 12/audi a7 up rs7 12 (03).jpg','audi a7 up rs7 12/audi a7 up rs7 12 (04).jpg','audi a7 up rs7 12/audi a7 up rs7 12 (05).jpg'],
-        specs: { seats:'5', trans:'AT', drive:'FWD' },
+        specs: { seats:'5', trans:'AT', drive:'FWD' }, category:'sedan', badge:'升级改装',
         data: {
-            zh: { title:'奥迪 A7 → RS7', year:'2012', price:'$1,100 / 月', desc:'奥迪A7 2012改装升级为RS7外观套件，sportback流线造型，四环豪华运动轿车。' },
-            en: { title:'Audi A7 → RS7', year:'2012', price:'$1,100 / month', desc:'Audi A7 2012 upgraded with RS7 exterior kit, sleek sportback design for Audi luxury performance look.' },
-            km: { title:'Audi A7 → RS7', year:'2012', price:'$1,100 / ខែ', desc:'Audi A7 2012 ដំឡើងខ្នាតក្រៅ RS7 kit ការរចនា sportback ស្អាត ។' }
+            zh: { title:'奥迪 A7 → RS7', year:'2012', price:'$1,100 / 月', desc:'奥迪A7 2012升级改装为RS7外观套件，sportback流线造型，四环豪华运动轿车。', avail:'升级改装', tag:'运动轿车', seat:'5 座' },
+            en: { title:'Audi A7 → RS7', year:'2012', price:'$1,100 / month', desc:'Audi A7 2012 upgraded with RS7 exterior kit and sleek sportback design.', avail:'Upgraded', tag:'Sport Sedan', seat:'5 Seats' },
+            km: { title:'Audi A7 → RS7', year:'2012', price:'$1,100 / ខែ', desc:'Audi A7 2012 ដំឡើង​ខ្នាត​ក្រៅ RS7 kit ការ​រចនា sportback ។', avail:'ដំឡើង', tag:'Sport Sedan', seat:'5 កៅអី' }
         }
     },
     alphard_12: {
         images: ['alphard 12/alphard 12 (01).jpg','alphard 12/alphard 12 (02).jpg','alphard 12/alphard 12 (03).jpg','alphard 12/alphard 12 (04).jpg','alphard 12/alphard 12 (05).jpg'],
-        specs: { seats:'7', trans:'AT', drive:'FF' },
+        specs: { seats:'7', trans:'AT', drive:'FF' }, category:'mpv',
         data: {
-            zh: { title:'丰田 埃尔法', year:'2011', price:'$1,000 / 月', desc:'丰田埃尔法2011款，经典VIP厢式MPV，宽敞舒适，商务接送与家庭出行的可靠之选。' },
-            en: { title:'Toyota Alphard', year:'2011', price:'$1,000 / month', desc:'Toyota Alphard 2011, classic VIP minivan with spacious and comfortable cabin for business and family trips.' },
-            km: { title:'Toyota Alphard', year:'2011', price:'$1,000 / ខែ', desc:'Toyota Alphard 2011 minivan VIP classic ខ្នាតធំ ស្រួល ល្អ business និង family ។' }
+            zh: { title:'丰田 埃尔法', year:'2011', price:'$1,000 / 月', desc:'丰田埃尔法2011款，经典VIP厢式MPV，宽敞舒适，商务接送与家庭出行的可靠之选。', avail:'可租赁', tag:'豪华MPV', seat:'7 座' },
+            en: { title:'Toyota Alphard', year:'2011', price:'$1,000 / month', desc:'Toyota Alphard 2011 — classic VIP minivan with spacious comfortable cabin for business and family.', avail:'Available', tag:'Luxury MPV', seat:'7 Seats' },
+            km: { title:'Toyota Alphard', year:'2011', price:'$1,000 / ខែ', desc:'Toyota Alphard 2011 minivan VIP classic ខ្នាត​ធំ ស្រួល ។', avail:'អាចជួល', tag:'MPV ប្រណីត', seat:'7 កៅអី' }
         }
     }
 };
+
+// ══════════════════════════════════════════
+// BUILD FLEET GRID FROM DB
+// ══════════════════════════════════════════
+function buildFleetGrid(lang) {
+    const grid = document.getElementById('fleet-grid');
+    grid.innerHTML = '';
+    Object.entries(carDB).forEach(([key, car]) => {
+        const d = car.data[lang] || car.data.zh;
+        const badgeColor = (car.badge === 'VIP' || car.badge === 'Top') ? 'bg-amber-500' :
+                           (car.badge && (car.badge.includes('升级') || car.badge === 'Upgraded' || car.badge === 'ដំឡើង')) ? 'bg-amber-500' :
+                           'bg-green-500';
+        const badgeText = (car.badge === 'VIP') ? 'VIP' :
+                          (car.badge === '顶级' || car.badge === 'Top' || car.badge === 'ថ្នាក់​ខ្ពស់') ? (lang==='zh'?'顶级':lang==='km'?'ថ្នាក់​ខ្ពស់':'Top') :
+                          (car.badge && (car.badge.includes('升级') || car.badge==='Upgraded' || car.badge==='ដំឡើង')) ? (lang==='zh'?'升级改装':lang==='km'?'ដំឡើង':'Upgraded') :
+                          d.avail;
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = `
+        <div class="car-card bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" onclick="openModal('${key}')" data-category="${car.category}">
+            <div class="relative bg-gray-200 overflow-hidden">
+                <img src="${car.images[0]}" alt="${d.title}" class="car-card-img">
+                <span class="absolute top-3 left-3 ${badgeColor} text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider badge-avail">${badgeText}</span>
+                <span class="absolute top-3 right-3 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-lg">${car.images.length} ${lang==='zh'?'张照片':lang==='km'?'រូប':'Photos'}</span>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+                <div class="flex items-start justify-between mb-2">
+                    <h3 class="text-xl font-black text-gray-900 leading-tight">${d.title}</h3>
+                    <span class="bg-red-50 text-red-600 text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap ml-2">${d.year}</span>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs font-bold text-gray-600 mb-3">
+                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>${d.seat}</span>
+                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg">${car.specs.trans}</span>
+                    <span class="flex items-center bg-gray-100 px-2.5 py-1 rounded-lg">${d.tag}</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed flex-1">${d.desc}</p>
+                <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
+                    <div>
+                        <p class="text-2xl font-black text-red-600">${d.price}</p>
+                    </div>
+                    <button class="bg-gray-900 text-white font-bold py-2 px-4 rounded-xl text-sm hover:bg-red-600 active:scale-95 transition-all flex items-center gap-1">
+                        <span>${lang==='zh'?'查看详情':lang==='km'?'មើល​ព័ត៌មាន':'View Details'}</span> ›
+                    </button>
+                </div>
+            </div>
+        </div>`;
+        grid.appendChild(wrapper);
+    });
+}
 
 let currentCar = null, currentIdx = 0, globalLang = 'zh';
 
@@ -1778,11 +960,14 @@ function openModal(carKey) {
     renderModal();
     document.getElementById('carModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
+    // Update URL hash for sharing
+    history.replaceState(null, '', '#car=' + carKey);
 }
 
 function closeModal() {
     document.getElementById('carModal').style.display = 'none';
     document.body.style.overflow = '';
+    history.replaceState(null, '', window.location.pathname + window.location.search);
 }
 
 function renderModal() {
@@ -1798,8 +983,8 @@ function renderModal() {
     const sl = { zh:{seats:'座位',trans:'变速箱',drive:'驱动'}, en:{seats:'Seats',trans:'Trans.',drive:'Drive'}, km:{seats:'កៅអី',trans:'លំដាប់',drive:'ដ្រាយ'} }[globalLang] || { seats:'Seats',trans:'Trans.',drive:'Drive' };
     specsEl.innerHTML = `
         <span class="flex items-center gap-1 bg-gray-700 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-bold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>${sl.seats}: ${car.specs.seats}</span>
-        <span class="flex items-center gap-1 bg-gray-700 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-bold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>${sl.trans}: ${car.specs.trans}</span>
-        <span class="flex items-center gap-1 bg-gray-700 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-bold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>${sl.drive}: ${car.specs.drive}</span>
+        <span class="flex items-center gap-1 bg-gray-700 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-bold">${sl.trans}: ${car.specs.trans}</span>
+        <span class="flex items-center gap-1 bg-gray-700 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-bold">${sl.drive}: ${car.specs.drive}</span>
     `;
 
     const dotsEl = document.getElementById('modalDots');
@@ -1808,9 +993,61 @@ function renderModal() {
     const thumbsEl = document.getElementById('modalThumbs');
     thumbsEl.innerHTML = car.images.map((src,i) => `<img class="modal-thumb${i===currentIdx?' active':''}" src="${src}" onclick="jumpImg(${i})" alt="Photo ${i+1}">`).join('');
 
-    const clabels = { zh:'立即预定此车', en:'Book This Car', km:'កក់រថយន្តនេះ' };
+    // Labels
+    const clabels = { zh:'立即预定此车', en:'Book This Car', km:'កក់​រថយន្ត​នេះ' };
+    const slabels = { zh:'分享此车', en:'Share This Car', km:'ចែក​រំលែក​រថយន្ត​នេះ' };
+    const rlabels = { zh:'相关车辆', en:'Related Cars', km:'រថយន្ត​ស្រដៀង' };
+    const flabels = { zh:'⚡ 快速租车', en:'⚡ Fast Rental', km:'⚡ ជួល​លឿន' };
+    const copylabels = { zh:'复制', en:'Copy', km:'ចម្លង' };
     document.getElementById('modal-contact-label').textContent = clabels[globalLang] || clabels.zh;
+    document.getElementById('modal-share-label').textContent = slabels[globalLang] || slabels.zh;
+    document.getElementById('modal-related-label').textContent = rlabels[globalLang] || rlabels.zh;
+    document.getElementById('modal-fast-label').textContent = flabels[globalLang] || flabels.zh;
+
+    // Share link
+    const shareUrl = window.location.origin + window.location.pathname + '#car=' + currentCar;
+    document.getElementById('shareInput').value = shareUrl;
+    const copyBtn = document.getElementById('shareCopyBtn');
+    copyBtn.classList.remove('copied');
+    document.getElementById('shareCopyTxt').textContent = copylabels[globalLang] || '复制';
+
+    // Related cars (same category)
+    renderRelated(currentCar, car.category);
+
     feather.replace();
+}
+
+function renderRelated(currentKey, category) {
+    const container = document.getElementById('relatedCars');
+    const related = Object.entries(carDB).filter(([k, c]) => k !== currentKey && c.category === category).slice(0, 6);
+    if (related.length === 0) {
+        document.getElementById('relatedSection').style.display = 'none';
+        return;
+    }
+    document.getElementById('relatedSection').style.display = '';
+    container.innerHTML = related.map(([k, c]) => {
+        const d = c.data[globalLang] || c.data.zh;
+        return `<div class="related-card" onclick="openModal('${k}')">
+            <img src="${c.images[0]}" alt="${d.title}">
+            <div class="related-card-title">${d.title} ${d.year}</div>
+        </div>`;
+    }).join('');
+}
+
+function copyShareLink() {
+    const input = document.getElementById('shareInput');
+    const btn = document.getElementById('shareCopyBtn');
+    const txt = document.getElementById('shareCopyTxt');
+    input.select();
+    try {
+        navigator.clipboard.writeText(input.value).catch(() => { document.execCommand('copy'); });
+    } catch(e) { document.execCommand('copy'); }
+    btn.classList.add('copied');
+    txt.textContent = globalLang==='zh'?'已复制!':globalLang==='km'?'បាន​ចម្លង!':'Copied!';
+    setTimeout(() => {
+        btn.classList.remove('copied');
+        txt.textContent = globalLang==='zh'?'复制':globalLang==='km'?'ចម្លង':'Copy';
+    }, 2000);
 }
 
 function jumpImg(idx) { currentIdx = idx; renderModal(); }
@@ -1826,6 +1063,17 @@ document.addEventListener('keydown', e => {
     }
 });
 
+// Check URL hash on load for direct sharing
+function checkHashOnLoad() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#car=')) {
+        const carKey = hash.replace('#car=', '');
+        if (carDB[carKey]) {
+            setTimeout(() => openModal(carKey), 300);
+        }
+    }
+}
+
 // ══════════════════════════════════════════
 // TRANSLATIONS
 // ══════════════════════════════════════════
@@ -1835,93 +1083,75 @@ const T = {
         'sub-logo':'高端汽车租赁服务','nav-fleet':'车队','nav-features':'服务','nav-map':'位置','nav-contact-lnk':'联系我们',
         'mob-fleet':'车队','mob-features':'服务','mob-map':'位置','mob-contact-lnk':'联系我们',
         'cta-telegram':'Telegram频道','mob-telegram-btn':'加入我们的Telegram频道',
-        'hero-badge':'柬埔寨高端豪华车队','hero-title':'柬埔寨高端汽车租赁','hero-subtitle':'豪华车队 · 尊享体验 · 24小时客服','hero-btn':'查看车辆','hero-tg-txt':'Telegram频道',
-        'tg-banner-title':'加入我们的Telegram官方频道','tg-banner-sub':'获取最新车辆信息、优惠活动及实时更新','tg-banner-btn':'@v88autocar168',
+        'hero-badge':'柬埔寨高端豪华车队','hero-title':'柬埔寨高端汽车租赁','hero-subtitle':'豪华车队 · 尊享体验 · 24小时客服','hero-btn':'查看车辆','hero-tg-txt':'快速租车',
         'features-title':'为什么选择 VHV888 AUTO?','features-subtitle':'我们致力于在柬埔寨提供最优质、最便捷的豪华租车服务。',
         'f1-title':'精选豪华车队','f1-desc':'每辆车经过精心筛选、完善保养，确保最佳状态。',
         'f2-title':'24/7全天候客服','f2-desc':'全天候在线，随时通过Telegram或电话解答需求。',
         'f3-title':'手续简单快捷','f3-desc':'简化租车流程，无需繁琐手续，轻松提车畅行。',
-        'f4-title':'Telegram频道','f4-desc':'关注我们的频道，获取最新车辆及优惠信息。',
+        'f4-title':'快速租车','f4-desc':'通过 @Ai520z 快速询价，即时响应，极速出发。',
         'fleet-heading':'尊享豪华车队','fleet-sub':'点击任意车辆查看全部照片及详情',
         'filter-all':'全部','filter-suv':'SUV','filter-mpv':'MPV','filter-sedan':'轿车','filter-sports':'跑车','filter-truck':'皮卡',
-        'badge-avail-1':'可租赁','badge-avail-2':'可租赁','badge-avail-3':'可租赁','badge-avail-4':'可租赁',
-        'c1-title':'奔驰','c1-year':'2015 – 2020','c1-seat':'5 座','c1-tag':'豪华轿车','c1-desc':'德系豪华工艺，精致内饰体验。适合商务出行、机场接送及高端行政旅途。','c1-price-note':'月租',
-        'c2-title':'丰田 埃尔法','c2-year':'2020 – 2025','c2-seat':'7 座','c2-tag':'豪华MPV','c2-desc':'明星保姆车首选 — 宽敞VIP舱、豪华座椅、超平顺驾乘体验。','c2-price-note':'月租',
-        'c3-title':'宝马 X6','c3-year':'2023','c3-seat':'5 座','c3-tag':'运动SAV','c3-desc':'运动Coupe SUV造型，双涡轮增压动力，M运动套件，霸气路感。','c3-price-note':'月租',
-        'c4-title':'现代 斯塔利亚','c4-year':'2023','c4-seat':'9 座','c4-tag':'家庭MPV','c4-desc':'未来感太空厢式造型，宽敞座位，全景天窗，舒适乘坐。','c4-price-note':'月租',
         'map-badge':'西港 · 柬埔寨','map-heading':'我们的车行位置','map-subheading':'位于西港市中心，交通便利，随时欢迎来访看车',
         'map-info-title':'车行信息','map-addr-label':'地址','map-addr-val':'西港 (Sihanoukville)，柬埔寨',
         'map-hours-label':'营业时间','map-hours-val':'每天 24小时 全年无休',
         'map-phone-label':'电话','map-directions-btn':'导航至车行','map-tg-btn':'Telegram预约',
         'map-qr-label':'扫码查看位置','map-qr-desc':'使用手机扫码直接导航',
         'stat-cars':'豪华车辆','stat-service':'全天服务',
-        'contact-title':'准备好预订了吗?','contact-subtitle':'立即通过Telegram或电话联系我们 — 快速、简单、无需等待。',
-        'ct-tg-label':'Telegram频道','ct-tg-sub':'关注我们的官方频道，获取最新车辆信息',
+        'contact-badge':'立即联系','contact-title':'准备好预订了吗?','contact-subtitle':'立即通过Telegram或电话联系我们 — 快速、简单、无需等待。',
+        'ct-fast-label':'⚡ 快速租车 · KH & ZH',
         'ct-ph1-label':'电话 1','ct-ph2-label':'电话 2','ct-hours-label':'营业时间','ct-hours-val':'24 / 7 全天候服务',
-        'footer-sublogo':'高端汽车租赁 · 柬埔寨','f-tg-lbl':'Telegram频道:','f-ph-lbl':'电话:',
-        'dock-fleet':'车队','dock-contact':'联系'
+        'footer-sublogo':'高端汽车租赁 · 柬埔寨','f-ph-lbl':'电话:',
+        'dock-fleet':'车队','dock-contact':'联系','dock-tg':'快速租车'
     },
     en: {
         label:'English',
-        'sub-logo':'Premium Car Service','nav-fleet':'Our Fleet','nav-features':'Services','nav-map':'Location','nav-contact-lnk':'Contact',
+        'sub-logo':'Premium Car Rental Service','nav-fleet':'Our Fleet','nav-features':'Services','nav-map':'Location','nav-contact-lnk':'Contact',
         'mob-fleet':'Our Fleet','mob-features':'Services','mob-map':'Location','mob-contact-lnk':'Contact',
         'cta-telegram':'Telegram Channel','mob-telegram-btn':'Join Our Telegram Channel',
-        'hero-badge':'Cambodia Premium Luxury Fleet','hero-title':'Premium Car Rental in Cambodia','hero-subtitle':'Luxury Fleet · Elite Experience · 24/7 Support','hero-btn':'View Cars','hero-tg-txt':'Telegram Channel',
-        'tg-banner-title':'Join Our Official Telegram Channel','tg-banner-sub':'Get latest car updates, special offers and real-time news','tg-banner-btn':'@v88autocar168',
-        'features-title':'Why VHV888 AUTO?','features-subtitle':'We provide premium and convenient luxury car rental service in Cambodia.',
+        'hero-badge':'Cambodia Premium Luxury Fleet','hero-title':'Premium Car Rental in Cambodia','hero-subtitle':'Luxury Fleet · Elite Experience · 24/7 Support','hero-btn':'View Cars','hero-tg-txt':'Fast Rental',
+        'features-title':'Why VHV888 AUTO?','features-subtitle':'We provide the best and most convenient luxury car rental service in Cambodia.',
         'f1-title':'Premium Fleet','f1-desc':'Hand-picked luxury vehicles, fully maintained for every rental.',
         'f2-title':'24/7 Support','f2-desc':'Round-the-clock service via Telegram and phone — always here for you.',
-        'f3-title':'Easy Process','f3-desc':'Simple, streamlined rental — no complicated paperwork, just drive.',
-        'f4-title':'Telegram Channel','f4-desc':'Follow our channel for latest cars and special offers.',
+        'f3-title':'Easy Process','f3-desc':'Streamlined rental — no complicated paperwork, just drive.',
+        'f4-title':'Fast Rental','f4-desc':'Quick quote via @Ai520z — instant response, get on the road fast.',
         'fleet-heading':'Our Premium Fleet','fleet-sub':'Click any car to view all photos & details',
         'filter-all':'All','filter-suv':'SUV','filter-mpv':'MPV','filter-sedan':'Sedan','filter-sports':'Sports','filter-truck':'Truck',
-        'badge-avail-1':'Available','badge-avail-2':'Available','badge-avail-3':'Available','badge-avail-4':'Available',
-        'c1-title':'Mercedes-Benz','c1-year':'2015 – 2020','c1-seat':'5 Seats','c1-tag':'Luxury Sedan','c1-desc':'Elegant German engineering with a premium cabin. Ideal for business trips and executive travel.','c1-price-note':'Monthly rental',
-        'c2-title':'Toyota Alphard','c2-year':'2020 – 2025','c2-seat':'7 Seats','c2-tag':'Premium MPV','c2-desc':'The iconic VIP van — ultra-spacious cabin with captain seats for VIP transport.','c2-price-note':'Monthly rental',
-        'c3-title':'BMW X6','c3-year':'2023','c3-seat':'5 Seats','c3-tag':'Sports SAV','c3-desc':'Bold coupe-SUV with twin-turbo power, M Sport styling and commanding road presence.','c3-price-note':'Monthly rental',
-        'c4-title':'Hyundai Staria','c4-year':'2023','c4-seat':'9 Seats','c4-tag':'Family MPV','c4-desc':'Futuristic space-van with generous seating, panoramic roof and comfortable ride.','c4-price-note':'Monthly rental',
-        'map-badge':'Sihanoukville · Cambodia','map-heading':'Our Garage Location','map-subheading':'Located in Sihanoukville (西港), easy access, welcome to visit anytime',
+        'map-badge':'Sihanoukville · Cambodia','map-heading':'Our Garage Location','map-subheading':'Located in Sihanoukville, easy access, welcome to visit anytime',
         'map-info-title':'Garage Info','map-addr-label':'Address','map-addr-val':'Sihanoukville (西港), Cambodia',
         'map-hours-label':'Opening Hours','map-hours-val':'24 Hours / 7 Days a Week',
         'map-phone-label':'Phone','map-directions-btn':'Get Directions','map-tg-btn':'Book via Telegram',
         'map-qr-label':'Scan to Navigate','map-qr-desc':'Scan with phone to navigate directly',
         'stat-cars':'Luxury Cars','stat-service':'24/7 Service',
-        'contact-title':'Ready to Book?','contact-subtitle':'Contact us via Telegram or phone — fast, easy, no waiting.',
-        'ct-tg-label':'Telegram Channel','ct-tg-sub':'Follow our official channel for latest car info',
+        'contact-badge':'Contact Us','contact-title':'Ready to Book?','contact-subtitle':'Contact us via Telegram or phone — fast, easy, no waiting.',
+        'ct-fast-label':'⚡ Fast Rental · KH & ZH',
         'ct-ph1-label':'Phone 1','ct-ph2-label':'Phone 2','ct-hours-label':'Hours','ct-hours-val':'24 / 7 Available',
-        'footer-sublogo':'Premium Car Service · Cambodia','f-tg-lbl':'Telegram Channel:','f-ph-lbl':'Phone:',
-        'dock-fleet':'Fleet','dock-contact':'Contact'
+        'footer-sublogo':'Premium Car Service · Cambodia','f-ph-lbl':'Phone:',
+        'dock-fleet':'Fleet','dock-contact':'Contact','dock-tg':'Fast Rental'
     },
     km: {
         label:'ភាសាខ្មែរ',
-        'sub-logo':'សេវាជួលរថយន្តប្រណីត','nav-fleet':'រថយន្ត','nav-features':'សេវាកម្ម','nav-map':'ទីតាំង','nav-contact-lnk':'ទំនាក់ទំនង',
-        'mob-fleet':'រថយន្ត','mob-features':'សេវាកម្ម','mob-map':'ទីតាំង','mob-contact-lnk':'ទំនាក់ទំនង',
-        'cta-telegram':'ប៉ុស្ដិ៍ Telegram','mob-telegram-btn':'ចូលរួម Telegram',
-        'hero-badge':'ប្រណីតនៅកម្ពុជា','hero-title':'ជួលរថយន្តប្រណីតនៅកម្ពុជា','hero-subtitle':'រថយន្តប្រណីត · VIP · ជំនួយ ២៤/៧','hero-btn':'មើលរថយន្ត','hero-tg-txt':'ប៉ុស្ដិ៍ Telegram',
-        'tg-banner-title':'ចូលរួម Telegram ផ្លូវការ','tg-banner-sub':'ទទួលព័ត៌មានរថយន្ត ការបញ្ចុះតម្លៃ ថ្មីៗ','tg-banner-btn':'@v88autocar168',
-        'features-title':'ហេតុអ្វីជ្រើស VHV888 AUTO?','features-subtitle':'យើងផ្តល់សេវាជួលរថយន្តប្រណីតល្អបំផុតនៅកម្ពុជា។',
-        'f1-title':'រថយន្តប្រណីត','f1-desc':'រថយន្តជ្រើសរើសដោយដៃ ថែទាំពេញ សម្រាប់ការជួលគ្រប់ករណី។',
-        'f2-title':'ជំនួយ ២៤/៧','f2-desc':'សេវាអតិថិជន ២៤ ម៉ោង តាម Telegram និងទូរស័ព្ទ។',
-        'f3-title':'ដំណើរការងាយ','f3-desc':'ដំណើរការជួលងាយ គ្មានឯកសារស្មុគ្រ ជួបហើយទៅ។',
-        'f4-title':'ប៉ុស្ដិ៍ Telegram','f4-desc':'តាមដាន channel ដើម្បីព័ត៌មានរថយន្ត ថ្មី ។',
-        'fleet-heading':'រថយន្តប្រណីតរបស់យើង','fleet-sub':'ចុចលើរថយន្ត ដើម្បីមើលរូបភាព & ព័ត៌មានលម្អិត',
-        'filter-all':'ទាំងអស់','filter-suv':'SUV','filter-mpv':'MPV','filter-sedan':'ឡានធម្មតា','filter-sports':'ឡានប្រណាំង','filter-truck':'រថយន្តបាន',
-        'badge-avail-1':'អាចជួល','badge-avail-2':'អាចជួល','badge-avail-3':'អាចជួល','badge-avail-4':'អាចជួល',
-        'c1-title':'Mercedes-Benz','c1-year':'2015 – 2020','c1-seat':'5 កៅអី','c1-tag':'ឡានប្រណីត','c1-desc':'ការរចនារថយន្តអាល្លឺម៉ង់ ល្អសម្រាប់ដំណើរអាជីវកម្ម ។','c1-price-note':'ការជួលប្រចាំខែ',
-        'c2-title':'Toyota Alphard','c2-year':'2020 – 2025','c2-seat':'7 កៅអី','c2-tag':'MPV ប្រណីត','c2-desc':'ឡាន VIP ដ៏ល្បី — ខ្នាតធំ កៅអីមេ ល្អ VIP ។','c2-price-note':'ការជួលប្រចាំខែ',
-        'c3-title':'BMW X6','c3-year':'2023','c3-seat':'5 កៅអី','c3-tag':'Sports SAV','c3-desc':'Coupe-SUV twin-turbo ម៉ូតស្ទីល M Sport ។','c3-price-note':'ការជួលប្រចាំខែ',
-        'c4-title':'Hyundai Staria','c4-year':'2023','c4-seat':'9 កៅអី','c4-tag':'MPV គ្រួសារ','c4-desc':'ការរចនារថយន្ត ខ្នាតធំ ដំបូលបញ្ចាំង ជិះស្រួល ។','c4-price-note':'ការជួលប្រចាំខែ',
-        'map-badge':'ស៊ីហាណូកវីល (西港) · កម្ពុជា','map-heading':'ទីតាំងហ្គារ៉ាស','map-subheading':'ស្ថិតក្នុងមជ្ឈមណ្ឌល ស៊ីហាណូកវីល (西港) ងាយស្រួលចូលដំណើរ',
-        'map-info-title':'ព័ត៌មានហ្គារ៉ាស','map-addr-label':'អាសយដ្ឋាន','map-addr-val':'ស៊ីហាណូកវីល (西港), កម្ពុជា',
-        'map-hours-label':'ម៉ោងបើក','map-hours-val':'ប្រើប្រាស់ ២៤/៧ ។',
-        'map-phone-label':'ទូរស័ព្ទ','map-directions-btn':'រុករកទីតាំង','map-tg-btn':'ទំនាក់ Telegram',
-        'map-qr-label':'ស្កែន QR កំណត់ទីតាំង','map-qr-desc':'ស្កែនជាមួយទូរស័ព្ទ',
-        'stat-cars':'រថយន្តប្រណីត','stat-service':'សេវា ២៤/៧',
-        'contact-title':'ត្រៀមកក់?','contact-subtitle':'ទំនាក់ Telegram ឬទូរស័ព្ទ — លឿន ងាយ ។',
-        'ct-tg-label':'ប៉ុស្ដិ៍ Telegram','ct-tg-sub':'តាមដានប៉ុស្ដិ៍ ព័ត៌មានរថយន្ត',
-        'ct-ph1-label':'ទូរស័ព្ទ ១','ct-ph2-label':'ទូរស័ព្ទ ២','ct-hours-label':'ម៉ោង','ct-hours-val':'២៤/៧ ។',
-        'footer-sublogo':'សេវាជួលរថយន្ត · កម្ពុជា','f-tg-lbl':'Telegram:','f-ph-lbl':'ទូរស័ព្ទ:',
-        'dock-fleet':'រថយន្ត','dock-contact':'ទំនាក់ទំនង'
+        'sub-logo':'សេវា​ជួល​រថយន្ត​ប្រណីត','nav-fleet':'រថយន្ត','nav-features':'សេវា​កម្ម','nav-map':'ទី​តាំង','nav-contact-lnk':'ទំនាក់​ទំនង',
+        'mob-fleet':'រថយន្ត','mob-features':'សេវា​កម្ម','mob-map':'ទី​តាំង','mob-contact-lnk':'ទំនាក់​ទំនង',
+        'cta-telegram':'ឆានែល Telegram','mob-telegram-btn':'ចូលរួមឆានែល Telegram',
+        'hero-badge':'ប្រណីត​នៅ​កម្ពុជា','hero-title':'ជួល​រថយន្ត​ប្រណីត​នៅ​កម្ពុជា','hero-subtitle':'រថយន្ត​ប្រណីត · VIP · ជំនួយ ២៤/៧','hero-btn':'មើល​រថយន្ត','hero-tg-txt':'ជួល​លឿន',
+        'features-title':'ហេតុ​អ្វី​ជ្រើស VHV888 AUTO?','features-subtitle':'យើង​ផ្ដល់​សេវា​ជួល​រថយន្ត​ប្រណីត​ល្អ​បំផុត​នៅ​កម្ពុជា ។',
+        'f1-title':'រថយន្ត​ប្រណីត','f1-desc':'រថយន្ត​ជ្រើស​រើស​ដោយ​ដៃ ថែ​ទាំ​ពេញ ។',
+        'f2-title':'ជំនួយ ២៤/៧','f2-desc':'សេវា​អតិថិជន ២៤ ម៉ោង Telegram & ទូរស័ព្ទ ។',
+        'f3-title':'ដំណើរ​ការ​ងាយ','f3-desc':'ដំណើរ​ការ​ជួល​ងាយ គ្មាន​ឯក​សារ​ស្មុគ្រ ។',
+        'f4-title':'ជួល​លឿន','f4-desc':'សួរ​តម្លៃ​ *@Ai520z* — ឆ្លើយ​ភ្លាម ។',
+        'fleet-heading':'រថយន្ត​ប្រណីត​របស់​យើង','fleet-sub':'ចុច​លើ​រថយន្ត ដើម្បី​មើល​រូប​ភាព & ព័ត៌មាន',
+        'filter-all':'ទាំង​អស់','filter-suv':'SUV','filter-mpv':'MPV','filter-sedan':'ឡាន​ធម្មតា','filter-sports':'ឡាន​ប្រណាំង','filter-truck':'រថយន្ត​ Pick-up',
+        'map-badge':'ក្រុងព្រះសីហនុ · កម្ពុជា','map-heading':'ទី​តាំង​ហ្គារ៉ាស','map-subheading':'ស្ថិត​ក្នុង​ស៊ីហានុ​កវីល ងាយ​ស្រួល​ចូល​ ។',
+        'map-info-title':'ព័ត៌មាន​ហ្គារ៉ាស','map-addr-label':'អាស​យ​ដ្ឋាន','map-addr-val':'ក្រុងព្រះសីហនុ, កម្ពុជា',
+        'map-hours-label':'ម៉ោង​បើក','map-hours-val':'បេីក ២៤/៧ ។',
+        'map-phone-label':'ទូរ​ស័ព្ទ','map-directions-btn':'រុក​រក​ទី​តាំង','map-tg-btn':'ទំនាក់ Telegram',
+        'map-qr-label':'ស្កែន QR ទី​តាំង','map-qr-desc':'ស្កែន​ជាមួយ​ទូរ​ស័ព្ទ',
+        'stat-cars':'រថយន្ត​ប្រណីត','stat-service':'សេវា ២៤/៧',
+        'contact-badge':'ទំនាក់​ទំនង','contact-title':'ត្រៀម​កក់?','contact-subtitle':'ទំនាក់ Telegram ឬ​ទូរ​ស័ព្ទ — លឿន ងាយ ។',
+        'ct-fast-label':'⚡ ជួល​លឿន · KH & ZH',
+        'ct-ph1-label':'ទូរ​ស័ព្ទ ១','ct-ph2-label':'ទូរ​ស័ព្ទ ២','ct-hours-label':'ម៉ោង','ct-hours-val':'២៤/៧ ។',
+        'footer-sublogo':'សេវា​ជួល​រថយន្ត · កម្ពុជា','f-ph-lbl':'ទូរ​ស័ព្ទ:',
+        'dock-fleet':'រថយន្ត','dock-contact':'ទំនាក់','dock-tg':'ជួល​លឿន'
     }
 };
 
@@ -1935,18 +1165,14 @@ function applyLanguage(lang) {
         const el = document.getElementById(key);
         if(el) el.textContent = T[lang][key];
     }
-    document.querySelectorAll('.rent-unit').forEach(el => {
-        el.textContent = lang==='zh'?'月':(lang==='km'?'ខែ':'mo');
-    });
-    document.querySelectorAll('.rent-btn-txt').forEach(el => {
-        el.textContent = lang==='zh'?'查看详情':(lang==='km'?'មើលព័ត៌មានលម្អិត':'View Details');
-    });
     if(dropdownPanel) dropdownPanel.classList.remove('custom-dropdown-open');
+    buildFleetGrid(lang);
     if(currentCar && document.getElementById('carModal').style.display==='block') renderModal();
 }
 
-// Default: Chinese
+// Init
 applyLanguage('zh');
+checkHashOnLoad();
 </script>
 </body>
 </html>
